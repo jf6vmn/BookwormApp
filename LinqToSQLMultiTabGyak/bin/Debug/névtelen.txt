@@ -1,0 +1,2 @@
+﻿Title,Author1,Publisher1,Release_date,Genre1,ISBN,E_book,Foreign_language,Borrowed,
+Őszi napsugár	Ambrus Zoltán	Népszabadság ZRT.	2007	dráma	978-963-9709-348	False	False	False	

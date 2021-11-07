@@ -1,0 +1,31 @@
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\bin\Debug\LinqToSQLMultiTabGyak.exe.config
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\bin\Debug\LinqToSQLMultiTabGyak.exe
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\bin\Debug\LinqToSQLMultiTabGyak.pdb
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.csprojAssemblyReference.cache
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.Form1.resources
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.Properties.Resources.resources
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.csproj.GenerateResource.cache
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.csproj.CoreCompileInputs.cache
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.exe
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.pdb
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\bin\Debug\itextsharp.dll
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\bin\Debug\itextsharp.xml
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.csproj.CopyComplete
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.AddBookFrm.resources
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak másolata\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.csprojAssemblyReference.cache
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak másolata\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.AddBookFrm.resources
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak másolata\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.Form1.resources
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak másolata\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.Properties.Resources.resources
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak másolata\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.csproj.GenerateResource.cache
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak másolata\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.csproj.CoreCompileInputs.cache
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak másolata\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.exe
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak másolata\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.pdb
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak másolata\LinqToSQLMultiTabGyak\bin\Debug\LinqToSQLMultiTabGyak.exe.config
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak másolata\LinqToSQLMultiTabGyak\bin\Debug\LinqToSQLMultiTabGyak.exe
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak másolata\LinqToSQLMultiTabGyak\bin\Debug\LinqToSQLMultiTabGyak.pdb
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak másolata\LinqToSQLMultiTabGyak\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak másolata\LinqToSQLMultiTabGyak\bin\Debug\itextsharp.dll
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak másolata\LinqToSQLMultiTabGyak\bin\Debug\itextsharp.xml
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak másolata\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.csproj.CopyComplete
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak másolata\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.UpdateBookFrm.resources

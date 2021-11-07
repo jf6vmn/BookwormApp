@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BookwormDB" Class="SampleDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=VLZ_ASUS;Initial Catalog=BookwormDB;Integrated Security=True" SettingsObjectName="LinqToSQLMultiTabGyak.Properties.Settings" SettingsPropertyName="BookwormDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Authors" Member="Authors">
+    <Type Name="Author">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Author" Member="Author1" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Author_Book" Member="Books" ThisKey="ID" OtherKey="Author_id" Type="Book" />
+      <Association Name="Author_BooksAuthor" Member="BooksAuthors" ThisKey="ID" OtherKey="AuthorID" Type="BooksAuthor" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Publishers" Member="Publishers">
+    <Type Name="Publisher">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Publisher" Member="Publisher1" Type="System.String" DbType="VarChar(35) NOT NULL" CanBeNull="false" />
+      <Association Name="Publisher_Book" Member="Books" ThisKey="ID" OtherKey="Publisher_id" Type="Book" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Books" Member="Books">
+    <Type Name="Book">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Author_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Publisher_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Genre_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ISBN" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Release_date" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Foreign_language" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="E_book" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Borrowed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Book_BooksAuthor" Member="BooksAuthors" ThisKey="ID" OtherKey="BookID" Type="BooksAuthor" />
+      <Association Name="Author_Book" Member="Author" ThisKey="Author_id" OtherKey="ID" Type="Author" IsForeignKey="true" />
+      <Association Name="Publisher_Book" Member="Publisher" ThisKey="Publisher_id" OtherKey="ID" Type="Publisher" IsForeignKey="true" />
+      <Association Name="Genre_Book" Member="Genre" ThisKey="Genre_id" OtherKey="ID" Type="Genre" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Genres" Member="Genres">
+    <Type Name="Genre">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Genre" Member="Genre1" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Association Name="Genre_Book" Member="Books" ThisKey="ID" OtherKey="Genre_id" Type="Book" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BooksAuthor" Member="BooksAuthors">
+    <Type Name="BooksAuthor">
+      <Column Name="BookID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AuthorID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Author_BooksAuthor" Member="Author" ThisKey="AuthorID" OtherKey="ID" Type="Author" IsForeignKey="true" />
+      <Association Name="Book_BooksAuthor" Member="Book" ThisKey="BookID" OtherKey="ID" Type="Book" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
