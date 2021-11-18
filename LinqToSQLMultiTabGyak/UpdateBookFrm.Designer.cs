@@ -74,7 +74,6 @@
             this.txBxUpdAuthor.Name = "txBxUpdAuthor";
             this.txBxUpdAuthor.Size = new System.Drawing.Size(361, 20);
             this.txBxUpdAuthor.TabIndex = 30;
-      //      this.txBxUpdAuthor.TextChanged += new System.EventHandler(this.txBxUpdAuthor_TextChanged);
             // 
             // txBxUpdTitle
             // 
@@ -82,7 +81,6 @@
             this.txBxUpdTitle.Name = "txBxUpdTitle";
             this.txBxUpdTitle.Size = new System.Drawing.Size(361, 20);
             this.txBxUpdTitle.TabIndex = 29;
-       //     this.txBxUpdTitle.TextChanged += new System.EventHandler(this.txBxUpdTitle_TextChanged);
             // 
             // txBxUpdPubDate
             // 
@@ -125,7 +123,7 @@
             // chckBxUpdEbook
             // 
             this.chckBxUpdEbook.AutoSize = true;
-            this.chckBxUpdEbook.Location = new System.Drawing.Point(82, 144);
+            this.chckBxUpdEbook.Location = new System.Drawing.Point(181, 144);
             this.chckBxUpdEbook.Name = "chckBxUpdEbook";
             this.chckBxUpdEbook.Size = new System.Drawing.Size(60, 17);
             this.chckBxUpdEbook.TabIndex = 24;
@@ -135,7 +133,7 @@
             // chckBxUpdForeignLang
             // 
             this.chckBxUpdForeignLang.AutoSize = true;
-            this.chckBxUpdForeignLang.Location = new System.Drawing.Point(148, 144);
+            this.chckBxUpdForeignLang.Location = new System.Drawing.Point(82, 144);
             this.chckBxUpdForeignLang.Name = "chckBxUpdForeignLang";
             this.chckBxUpdForeignLang.Size = new System.Drawing.Size(93, 17);
             this.chckBxUpdForeignLang.TabIndex = 23;

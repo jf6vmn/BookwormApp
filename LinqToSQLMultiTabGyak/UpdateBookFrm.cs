@@ -41,7 +41,7 @@ namespace LinqToSQLMultiTabGyak
             txBxUpdISBN.Text = GetISBN;
             chckBxUpdEbook.Checked = GetEbook;
             chckBxUpdForeignLang.Checked = GetForeign;
-            chckBxUpdLend.Checked = GetBorrowed;
+            if (GetBorrowed == true) { chckBxUpdLend.Checked = true; } else { chckBxUpdLend.Checked = false; }
         }
 
         private void btnCancelUpdaeWindow_Click(object sender, EventArgs e)
@@ -50,36 +50,88 @@ namespace LinqToSQLMultiTabGyak
         }
 
        public bool changeTitle = false, changeAuthor=false;
+        
+        
+        #region update figyelős metódus
 
+        /*        private void TxBxStuffed()
+                {
+                 //   txBxUpdTitle.TextChanged += new System.EventHandler(this.txBxUpdTitle_TextChanged);
+                    txBxUpdAuthor.TextChanged += new System.EventHandler(this.txBxUpdAuthor_TextChanged);
+                //    txBxUpdPbulisher.TextChanged += new System.EventHandler(this.txBxTextChanged);
+               //     txBxUpdPubDate.TextChanged += new System.EventHandler(this.txBxTextChanged);
+               //     txBxUpdGenre.TextChanged += new System.EventHandler(this.txBxTextChanged);
+               //     txBxUpdISBN.TextChanged += new System.EventHandler(this.txBxTextChanged);
 
-/*        private void TxBxStuffed()
-        {
-         //   txBxUpdTitle.TextChanged += new System.EventHandler(this.txBxUpdTitle_TextChanged);
-            txBxUpdAuthor.TextChanged += new System.EventHandler(this.txBxUpdAuthor_TextChanged);
-        //    txBxUpdPbulisher.TextChanged += new System.EventHandler(this.txBxTextChanged);
-       //     txBxUpdPubDate.TextChanged += new System.EventHandler(this.txBxTextChanged);
-       //     txBxUpdGenre.TextChanged += new System.EventHandler(this.txBxTextChanged);
-       //     txBxUpdISBN.TextChanged += new System.EventHandler(this.txBxTextChanged);
-       
-            }
+                    }
 
-        //private void txBxTextChanged(object sender, EventArgs e) { txBxWasChanged = true; }
-
-
-
-
-       // private void txBxUpdTitle_TextChanged(object sender, EventArgs e)   { changeTitle = true;}
-        private void txBxUpdAuthor_TextChanged(object sender, EventArgs e)  { changeAuthor = true; }
-
-*/
+                //private void txBxTextChanged(object sender, EventArgs e) { txBxWasChanged = true; }
 
 
 
-      void UpdateDatabase()
+
+               // private void txBxUpdTitle_TextChanged(object sender, EventArgs e)   { changeTitle = true;}
+                private void txBxUpdAuthor_TextChanged(object sender, EventArgs e)  { changeAuthor = true; }
+
+        */
+        #endregion
+
+
+        void UpdateDatabase()
         {
        //     TxBxStuffed();
             try
             {
+                #region //checkbox-ok update-je
+                if (chckBxUpdEbook.Checked == true)
+                {
+                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.E_book  = '" + 1 + "' where books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                    sqlConnectionUpdate.Open();
+                    sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
+                    sqlConnectionUpdate.Close();
+                }
+                else
+                {
+                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.E_book  = '" + 0 + "' where books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                    sqlConnectionUpdate.Open();
+                    sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
+                    sqlConnectionUpdate.Close();
+                }
+
+                if (chckBxUpdForeignLang.Checked == true)
+                {
+                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Foreign_language  = '" + 1 + "' where books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                    sqlConnectionUpdate.Open();
+                    sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
+                    sqlConnectionUpdate.Close();
+                }
+                else
+                {
+                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Foreign_language  = '" + 0 + "' where books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                    sqlConnectionUpdate.Open();
+                    sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
+                    sqlConnectionUpdate.Close();
+                }
+
+                if (chckBxUpdLend.Checked == true)
+                {
+                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Borrowed  = '" + 1 + "' where books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                    sqlConnectionUpdate.Open();
+                    sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
+                    sqlConnectionUpdate.Close();
+                }
+                else
+                {
+                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Borrowed  = '" + 0 + "' where books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                    sqlConnectionUpdate.Open();
+                    sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
+                    sqlConnectionUpdate.Close();
+                }
+
+                #endregion
+
+
+                #region //textbox-ok update-je
                 if (txBxUpdTitle.Text != GetTitle)
                 {
                     sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Title  = '" + txBxUpdTitle.Text + "' where books.Title='" + GetTitle + "' and Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
@@ -124,8 +176,9 @@ namespace LinqToSQLMultiTabGyak
                     sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
                     sqlConnectionUpdate.Close();
                 }
+                #endregion
 
-
+            
                 MessageBox.Show("Sikeres módosítás!");
                 this.Close();
               }
@@ -139,112 +192,7 @@ namespace LinqToSQLMultiTabGyak
 
         private void btnUpdateFromWindow_Click(object sender, EventArgs e)
         {
-
-            UpdateDatabase();
-            #region //update
-            /*try
-            {
-                // var updateForm = new UpdateBookFrm();
-                // updateForm.Show();
-                for (int i = 0; i < dataGridView1.SelectedCells.Count; i++)
-                {
-                    /* if(dataGridView1.SelectedCells[i].ColumnIndex ==0)
-                     {
-                          sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Title  = '" + changedCellData + "' where books.Title='" + baseCellData + "' and Books.ISBN='"+GetISBN +"'", sqlConnectionUpdate);
-                     }
-
-                     else if (dataGridView1.SelectedCells[i].ColumnIndex == 1)
-                     {
-                          sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Authors set Authors.Author  = '" + changedCellData + "' from Authors inner join[dbo].Books on Books.Author_id = Authors.ID where  Books.ISBN='" + GetISBN + "' and  Authors.Author='" + baseCellData + "'", sqlConnectionUpdate);            
-                     }
-                     else if (dataGridView1.SelectedCells[i].ColumnIndex == 2)
-                      {
-                          sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update [dbo].Genres set Genre  = '" + changedCellData + "' where author='" + baseCellData + "'", sqlConnectionUpdate);
-                          MessageBox.Show("izéke:" + baseCellData + "\nizéke még:" + changedCellData);
-
-                      }
-                     else if (dataGridView1.SelectedCells[i].ColumnIndex == 3)
-                      {
-                          // MessageBox.Show(dataGridView1.SelectedCells[i].Value.ToString());
-
-                          //   sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update [dbo].Authors set Author  = '" + dataGridView1.SelectedCells[i].Value.ToString() + "' where author='" + helpMehUpdateTis + "'", sqlConnectionUpdate);
-                          MessageBox.Show("izéke:" + baseCellData + "\nizéke még:" + changedCellData);
-
-                      }
-                      else if (dataGridView1.SelectedCells[i].ColumnIndex == 4)
-                      {
-                          //   sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update [dbo].Authors set Author  = '" + dataGridView1.SelectedCells[i].Value.ToString() + "' where author='" + helpMehUpdateTis + "'", sqlConnectionUpdate);
-                          MessageBox.Show("izéke:" + baseCellData + "\nizéke még:" + changedCellData);
-
-                      }
-                      else if (dataGridView1.SelectedCells[i].ColumnIndex == 5)
-                      {
-                          //   sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update [dbo].Authors set Author  = '" + dataGridView1.SelectedCells[i].Value.ToString() + "' where author='" + helpMehUpdateTis + "'", sqlConnectionUpdate);
-                          MessageBox.Show("izéke:" + baseCellData + "\nizéke még:" + changedCellData);
-
-                      }*/
-
-            #endregion
-            #region  switch-es cucc
-
-
-            /*   switch (i)
-               {
-                   case 0:
-                       {
-                           sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Title  = '" + changedCellData + "' where books.Title='" + baseCellData + "' and Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
-                           break;
-                       }
-                   case 1:
-                       {
-                           sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Authors set Authors.Author  = '" + changedCellData + "' from Authors inner join[dbo].Books on Books.Author_id = Authors.ID where  Books.ISBN='" + GetISBN + "' and  Authors.Author='" + baseCellData + "'", sqlConnectionUpdate);
-                           break;
-                       }
-                   case 3:
-                       {
-                           sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Authors set Authors.Author  = '" + changedCellData + "' from Authors inner join[dbo].Books on Books.Author_id = Authors.ID where  Books.ISBN='" + GetISBN + "' and  Authors.Author='" + baseCellData + "'", sqlConnectionUpdate);
-                           break;
-                       }
-                   case 4:
-                       {
-
-                           sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Authors set Authors.Author  = '" + changedCellData + "' from Authors inner join[dbo].Books on Books.Author_id = Authors.ID where  Books.ISBN='" + GetISBN + "' and  Authors.Author='" + baseCellData + "'", sqlConnectionUpdate);
-                           break;
-                       }
-                   case 5:
-                       {
-
-                           sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Authors set Authors.Author  = '" + changedCellData + "' from Authors inner join[dbo].Books on Books.Author_id = Authors.ID where  Books.ISBN='" + GetISBN + "' and  Authors.Author='" + baseCellData + "'", sqlConnectionUpdate);
-                           break;
-                       }
-                   default: break;
-
-
-               }
-
-               //  #endregion
-               //  MessageBox.Show("Eredeti szöveg:\t" + baseCellData + "\nMókolt szöveg:\t" + changedCellData + "\n\nHarmadi geci:\t" + GetISBN);
-               sqlConnectionUpdate.Open();
-               sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
-               sqlConnectionUpdate.Close();
-           }
-
-
-          MessageBox.Show("Sikeres módosítás!");
-           //  tableMergingStuff(); //grid frissítése
-       }
-
-       catch (Exception ex)
-       {
-           MessageBox.Show("Hiba történt módosítás közben:\n" + ex);
-       }*/
-            #endregion
-
-            /*  Form1 mainFrm = new Form1();
-              MessageBox.Show( mainFrm.GetTitle());
-              txBxUpdAuthor.Text = mainFrm.GetAuthor();*/
+            UpdateDatabase();          
         }
-
-
     }
 }
