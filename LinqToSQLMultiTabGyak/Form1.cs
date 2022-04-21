@@ -18,7 +18,7 @@ namespace LinqToSQLMultiTabGyak
 {
     public partial class Form1 : Form
     {
-        SqlConnection sqlConnection = new SqlConnection("Data Source=VLZ_ASUS;Initial Catalog=BookwormDB;Integrated Security=True");
+        SqlConnection sqlConnection = new SqlConnection("Data Source=VLZ_ASUS;Initial Catalog=BookwormDB_xy;Integrated Security=True");
         SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
 
         public Form1()
@@ -664,6 +664,11 @@ namespace LinqToSQLMultiTabGyak
 
 
         string uTitle = "", uAuthor = "", uGenre = "", uPublihser = "", uPubDate = "", uISBN = "";
+
+        private void menuStripHelp_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"readme.txt");
+        }
 
         private void menuStripExportPDF_Click(object sender, EventArgs e)   //www.c-sharpcorner.com/blogs/export-datagridview-data-to-pdf-in-c-sharp
         {

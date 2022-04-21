@@ -21,8 +21,11 @@ namespace LinqToSQLMultiTabGyak
         public bool GetForeign { get; set; }
         public bool GetBorrowed { get; set; }
 
+        DataSet dataSet=new DataSet();
+        int authCount =0, pubCount = 0;
 
-        SqlConnection sqlConnectionUpdate = new SqlConnection("Data Source=VLZ_ASUS;Initial Catalog=BookwormDB;Integrated Security=True");
+
+         SqlConnection sqlConnectionUpdate = new SqlConnection("Data Source=VLZ_ASUS;Initial Catalog=BookwormDB;Integrated Security=True");
         SqlDataAdapter sqlDataAdapterUpdate = new SqlDataAdapter();
 
         public UpdateBookFrm()
@@ -42,6 +45,40 @@ namespace LinqToSQLMultiTabGyak
             chckBxUpdEbook.Checked = GetEbook;
             chckBxUpdForeignLang.Checked = GetForeign;
             if (GetBorrowed == true) { chckBxUpdLend.Checked = true; } else { chckBxUpdLend.Checked = false; }
+
+
+
+         //   using (SqlConnection conn = new SqlConnection(@"Data Source=VLZ_ASUS;Initial Catalog=BookwormDB;Integrated Security=True"))     //combox feltötés
+            {
+                try
+                {
+
+                    sqlConnectionUpdate.Open();
+
+
+                   // conn.Open();
+                    SqlCommand comd = sqlConnectionUpdate.CreateCommand();
+                    comd.CommandType = CommandType.Text;
+                    comd.CommandText = "select Genre from dbo.Genres";
+                    comd.ExecuteNonQuery();
+                    DataTable dt = new DataTable();
+                    SqlDataAdapter da = new SqlDataAdapter(comd);
+                    da.Fill(dt);
+
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        comboBox1.Items.Add(dr["Genre"].ToString());
+                    }
+
+                    comboBox1.Text = GetGenre;
+                    //conn.Close(); 
+                    sqlConnectionUpdate.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("" + ex);
+                }
+            }
         }
 
         private void btnCancelUpdaeWindow_Click(object sender, EventArgs e)
@@ -49,8 +86,7 @@ namespace LinqToSQLMultiTabGyak
             this.Close();
         }
 
-       public bool changeTitle = false, changeAuthor=false;
-        
+       public bool changeTitle = false, changeAuthor=false;     
         
         #region update figyelős metódus
 
@@ -75,7 +111,6 @@ namespace LinqToSQLMultiTabGyak
 
         */
         #endregion
-
 
         void UpdateDatabase()
         {
@@ -130,40 +165,155 @@ namespace LinqToSQLMultiTabGyak
 
                 #endregion
 
-
                 #region //textbox-ok update-je
-                if (txBxUpdTitle.Text != GetTitle)
+                if (txBxUpdTitle.Text != GetTitle)                       //címek
                 {
                     sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Title  = '" + txBxUpdTitle.Text + "' where books.Title='" + GetTitle + "' and Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
                     sqlConnectionUpdate.Open();
                     sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
                     sqlConnectionUpdate.Close();
-                }
-                if (txBxUpdAuthor.Text != GetAuthor)
-                {
-                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Authors set Authors.Author  = '" + txBxUpdAuthor.Text + "' from Authors inner join[dbo].Books on Books.Author_id = Authors.ID where  Books.ISBN='" + GetISBN + "' and  Authors.Author='" + GetAuthor + "'", sqlConnectionUpdate);
-                    sqlConnectionUpdate.Open();
-                    sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
-                    sqlConnectionUpdate.Close();
-                }
+                }                  
 
-                if (txBxUpdPbulisher.Text  != GetPublishser)
+                if (txBxUpdAuthor.Text != GetAuthor)                  //szerzők update + ellenőrzés
                 {
-                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Publishers set Publishers.Publisher  = '" + txBxUpdPbulisher.Text + "' from Publishers inner join[dbo].Books on Books.Publisher_id = Publishers.ID where  Books.ISBN='" + GetISBN + "' and  Publishers.Publisher='" + GetPublishser + "'", sqlConnectionUpdate);
+                    string checkID = "";
+
                     sqlConnectionUpdate.Open();
-                    sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
-                    sqlConnectionUpdate.Close();
+                    SqlCommand cmda = new SqlCommand("select count(*) from authors where authors.author='" + txBxUpdAuthor.Text + "'",sqlConnectionUpdate);
+                    int count = (int)cmda.ExecuteScalar();
+                    
+                    if (count > 0)
+                    {
+                       // MessageBox.Show("Vótmá!");
+                       
+                        SqlCommand comandGetID= new SqlCommand("select id from authors where author='" + txBxUpdAuthor.Text + "'", sqlConnectionUpdate);
+                        SqlDataReader dataReader = comandGetID.ExecuteReader();
+
+                        if (dataReader.Read())
+                        {
+                            checkID = dataReader.GetValue(0).ToString();
+                            sqlConnectionUpdate.Close();
+                        }
+
+                        sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set Books.Author_id  = '"+ checkID + "'  where  Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                        sqlConnectionUpdate.Open();
+                        sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
+                        sqlConnectionUpdate.Close();
+                        MessageBox.Show(checkID);
+                    }
+                    else
+                    {
+                        MessageBox.Show("NEM VÓT MÉG!");
+                        sqlDataAdapterUpdate.InsertCommand = new SqlCommand("insert into dbo.Authors (Author) values ('"+txBxUpdAuthor.Text+"') select books.author_id, authors.id from Authors inner join[dbo].Books on Books.Author_id = Authors.ID where  Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                        sqlDataAdapterUpdate.InsertCommand.ExecuteNonQuery();
+
+                        SqlCommand scAuth = new SqlCommand("select id from authors where author='" + txBxUpdAuthor.Text + "'", sqlConnectionUpdate);
+                        SqlDataReader dataReader = scAuth.ExecuteReader();
+                        if (dataReader.Read()) { checkID = dataReader.GetValue(0).ToString(); sqlConnectionUpdate.Close(); }
+                        sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set Books.Author_id  = '" + checkID + "'  where  Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+
+                        sqlConnectionUpdate.Open();
+                        sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
+                        
+
+                        sqlConnectionUpdate.Close();
+                    }
+
+                    #region
+
+                    /*   for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                       {
+                           if (dataSet.Tables[0].Rows[i][0].ToString() == txBxUpdAuthor.Text)
+                           {
+                            authCount = i + 1;
+                            MessageBox.Show(dataSet.Tables[0].Rows[i][0].ToString()+"\n"+authCount.ToString());
+
+                            sqlDataAdapterUpdate.SelectCommand = new SqlCommand("Update books set books.author_id = @authCount  from Authors inner join[dbo].Books on Books.Author_id = Authors.ID where  Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                            sqlConnectionUpdate.Open();
+                            sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
+                            sqlConnectionUpdate.Close();
+                        }
+                           //textBox1.Text = dataSet.Tables[0].Rows[i][0].ToString();
+                       }
+                       // sqlConnectionUpdate.Close();
+
+
+                       /*sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Authors set Authors.Author  = '" + txBxUpdAuthor.Text + "' from Authors inner join[dbo].Books on Books.Author_id = Authors.ID where  Books.ISBN='" + GetISBN + "' and  Authors.Author='" + GetAuthor + "'", sqlConnectionUpdate);
+                        sqlConnectionUpdate.Open();
+                        sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
+                        sqlConnectionUpdate.Close();*/
+                    // MessageBox.Show(dataSet.Tables[0].Rows[1][0].ToString());
                 }
+                /*    else
+                    {
+                        sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("select ID from Authors where AutorsAuthor='" + GetAuthor + "'", sqlConnectionUpdate);
+                        sqlConnectionUpdate.Open();
+                        sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
+                        sqlDataAdapterUpdate.Fill(dataSet);
+
+                        string authorUpdateHelp = dataSet.Tables[0].Rows[0][0].ToString();
+                        sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Authors set Authors.ID  = '" + authorUpdateHelp + "' from Authors inner join[dbo].Books on Books.Author_id = Authors.ID where  Books.ISBN='" + GetISBN + "' and  Authors.Author='" + GetAuthor + "'", sqlConnectionUpdate);
+                        sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
+                        sqlConnectionUpdate.Close();
+                    }*/
+                #endregion
+
+                if (txBxUpdPbulisher.Text  != GetPublishser)            //kiadó update + ellenőrzés
+                {
+                    string checkAuth = "";
+                    sqlConnectionUpdate.Open();
+                    SqlCommand cmda = new SqlCommand("select count(*) from publishers where publishers.publisher='" + txBxUpdPbulisher.Text + "'", sqlConnectionUpdate);
+                    int count = (int)cmda.ExecuteScalar();
+
+                    if (count > 0)
+                    {
+                        SqlCommand scPub = new SqlCommand("select id from publishers where publisher='" + txBxUpdPbulisher.Text + "'", sqlConnectionUpdate);
+                        SqlDataReader dataReader = scPub.ExecuteReader();
+                        if (dataReader.Read()) { checkAuth = dataReader.GetValue(0).ToString(); sqlConnectionUpdate.Close(); }
+
+                        sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set Books.publisher_id  = '" + checkAuth + "'  where  Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                        sqlConnectionUpdate.Open();
+                        sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
+                        sqlConnectionUpdate.Close();
+                        MessageBox.Show(checkAuth);
+                    }
+
+                    else
+                    {
+                        sqlDataAdapterUpdate.InsertCommand = new SqlCommand("insert into dbo.Publishers (Publisher) values ('" + txBxUpdPbulisher.Text + "') select books.pubblisher_id, publishers.id from Publishers inner join[dbo].Books on Books.Publisher_id = Publishers.ID where  Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                        sqlDataAdapterUpdate.InsertCommand.ExecuteNonQuery();
+
+                        SqlCommand scAuth = new SqlCommand("select id from publishers where publisher='" + txBxUpdPbulisher.Text + "'", sqlConnectionUpdate);
+                        SqlDataReader dataReader = scAuth.ExecuteReader();
+                        if (dataReader.Read()) { checkAuth = dataReader.GetValue(0).ToString(); sqlConnectionUpdate.Close(); }
+                        sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set Books.Author_id  = '" + checkAuth + "'  where  Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+
+                        sqlConnectionUpdate.Open();
+                        sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
+                        sqlConnectionUpdate.Close();
+                    }
+
+                    /*  sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Publishers set Publishers.Publisher  = '" + txBxUpdPbulisher.Text + "' from Publishers inner join[dbo].Books on Books.Publisher_id = Publishers.ID where  Books.ISBN='" + GetISBN + "' and  Publishers.Publisher='" + GetPublishser + "'", sqlConnectionUpdate);
+                      sqlConnectionUpdate.Open();
+                      sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
+                      sqlConnectionUpdate.Close();*/
+                }       //kiadók
+
                 if (txBxUpdPubDate.Text != GetPubDAte)
                 { 
                     sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Release_Date  = '" + txBxUpdPubDate.Text + "' where books.Release_date='" + GetPubDAte + "' and Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
                     sqlConnectionUpdate.Open();
                     sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
                     sqlConnectionUpdate.Close();
-                }
-                if (txBxUpdGenre.Text != GetGenre)
+                }             //kiadás éve
+
+                if (comboBox1.SelectedItem.ToString() != GetGenre)                //if (txBxUpdGenre.Text != GetGenre)
                 {
-                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Genres set Genres.Genre  = '" + txBxUpdGenre.Text + "' from Genres inner join[dbo].Books on Books.Genre_id = Genres.ID where  Books.ISBN='" + GetISBN + "' and  Genres.Genre='" + GetGenre + "'", sqlConnectionUpdate);
+                    //   sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Genres set Genres.Genre  = '" + comboBox1.SelectedItem + "' from Genres inner join[dbo].Books on Books.Genre_id = Genres.ID where  Books.ISBN='" + GetISBN + "' and  Genres.Genre='" + GetGenre + "'", sqlConnectionUpdate);
+
+                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set Books.Genre_id  = '" + (comboBox1.SelectedIndex+1) + "' from Genres inner join[dbo].Books on Books.Genre_id = Genres.ID where  Books.ISBN='" + GetISBN + "' and  Genres.Genre='" + GetGenre + "'", sqlConnectionUpdate);
+
+
                     sqlConnectionUpdate.Open();
                     sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
                     sqlConnectionUpdate.Close();
@@ -177,8 +327,7 @@ namespace LinqToSQLMultiTabGyak
                     sqlConnectionUpdate.Close();
                 }
                 #endregion
-
-            
+  
                 MessageBox.Show("Sikeres módosítás!");
                 this.Close();
               }

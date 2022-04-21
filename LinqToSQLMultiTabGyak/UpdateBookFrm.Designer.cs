@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.txBxUpdISBN = new System.Windows.Forms.TextBox();
-            this.txBxUpdGenre = new System.Windows.Forms.TextBox();
             this.txBxUpdPbulisher = new System.Windows.Forms.TextBox();
             this.txBxUpdAuthor = new System.Windows.Forms.TextBox();
             this.txBxUpdTitle = new System.Windows.Forms.TextBox();
@@ -45,41 +44,36 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.txBxUpdGenre = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // txBxUpdISBN
             // 
             this.txBxUpdISBN.Location = new System.Drawing.Point(82, 118);
             this.txBxUpdISBN.Name = "txBxUpdISBN";
-            this.txBxUpdISBN.Size = new System.Drawing.Size(361, 20);
+            this.txBxUpdISBN.Size = new System.Drawing.Size(360, 20);
             this.txBxUpdISBN.TabIndex = 33;
-            // 
-            // txBxUpdGenre
-            // 
-            this.txBxUpdGenre.Location = new System.Drawing.Point(230, 92);
-            this.txBxUpdGenre.Name = "txBxUpdGenre";
-            this.txBxUpdGenre.Size = new System.Drawing.Size(214, 20);
-            this.txBxUpdGenre.TabIndex = 32;
             // 
             // txBxUpdPbulisher
             // 
             this.txBxUpdPbulisher.Location = new System.Drawing.Point(82, 64);
             this.txBxUpdPbulisher.Name = "txBxUpdPbulisher";
-            this.txBxUpdPbulisher.Size = new System.Drawing.Size(361, 20);
+            this.txBxUpdPbulisher.Size = new System.Drawing.Size(360, 20);
             this.txBxUpdPbulisher.TabIndex = 31;
             // 
             // txBxUpdAuthor
             // 
             this.txBxUpdAuthor.Location = new System.Drawing.Point(82, 38);
             this.txBxUpdAuthor.Name = "txBxUpdAuthor";
-            this.txBxUpdAuthor.Size = new System.Drawing.Size(361, 20);
+            this.txBxUpdAuthor.Size = new System.Drawing.Size(360, 20);
             this.txBxUpdAuthor.TabIndex = 30;
             // 
             // txBxUpdTitle
             // 
             this.txBxUpdTitle.Location = new System.Drawing.Point(82, 12);
             this.txBxUpdTitle.Name = "txBxUpdTitle";
-            this.txBxUpdTitle.Size = new System.Drawing.Size(361, 20);
+            this.txBxUpdTitle.Size = new System.Drawing.Size(360, 20);
             this.txBxUpdTitle.TabIndex = 29;
             // 
             // txBxUpdPubDate
@@ -92,9 +86,11 @@
             // btnCancelUpdaeWindow
             // 
             this.btnCancelUpdaeWindow.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancelUpdaeWindow.Location = new System.Drawing.Point(364, 240);
+            this.btnCancelUpdaeWindow.Image = global::LinqToSQLMultiTabGyak.Properties.Resources.ikon_delete;
+            this.btnCancelUpdaeWindow.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCancelUpdaeWindow.Location = new System.Drawing.Point(300, 234);
             this.btnCancelUpdaeWindow.Name = "btnCancelUpdaeWindow";
-            this.btnCancelUpdaeWindow.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelUpdaeWindow.Size = new System.Drawing.Size(110, 35);
             this.btnCancelUpdaeWindow.TabIndex = 27;
             this.btnCancelUpdaeWindow.Text = "Mégse";
             this.btnCancelUpdaeWindow.UseVisualStyleBackColor = true;
@@ -102,9 +98,11 @@
             // 
             // btnUpdateFromWindow
             // 
-            this.btnUpdateFromWindow.Location = new System.Drawing.Point(16, 240);
+            this.btnUpdateFromWindow.Image = global::LinqToSQLMultiTabGyak.Properties.Resources.ikon_modify;
+            this.btnUpdateFromWindow.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnUpdateFromWindow.Location = new System.Drawing.Point(60, 234);
             this.btnUpdateFromWindow.Name = "btnUpdateFromWindow";
-            this.btnUpdateFromWindow.Size = new System.Drawing.Size(342, 23);
+            this.btnUpdateFromWindow.Size = new System.Drawing.Size(220, 35);
             this.btnUpdateFromWindow.TabIndex = 26;
             this.btnUpdateFromWindow.Text = "Módosítás";
             this.btnUpdateFromWindow.UseVisualStyleBackColor = true;
@@ -143,7 +141,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(13, 121);
+            this.label6.Location = new System.Drawing.Point(12, 121);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(35, 13);
             this.label6.TabIndex = 22;
@@ -161,7 +159,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 95);
+            this.label4.Location = new System.Drawing.Point(12, 95);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(63, 13);
             this.label4.TabIndex = 20;
@@ -170,7 +168,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 67);
+            this.label3.Location = new System.Drawing.Point(12, 67);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(37, 13);
             this.label3.TabIndex = 19;
@@ -179,7 +177,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 41);
+            this.label2.Location = new System.Drawing.Point(12, 41);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(42, 13);
             this.label2.TabIndex = 18;
@@ -188,17 +186,34 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 12);
+            this.label1.Location = new System.Drawing.Point(12, 15);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 13);
             this.label1.TabIndex = 17;
             this.label1.Text = "Cím:";
             // 
+            // comboBox1
+            // 
+            this.comboBox1.Location = new System.Drawing.Point(229, 92);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(213, 21);
+            this.comboBox1.TabIndex = 34;
+            // 
+            // txBxUpdGenre
+            // 
+            this.txBxUpdGenre.Location = new System.Drawing.Point(11, 179);
+            this.txBxUpdGenre.Name = "txBxUpdGenre";
+            this.txBxUpdGenre.Size = new System.Drawing.Size(213, 20);
+            this.txBxUpdGenre.TabIndex = 32;
+            // 
             // UpdateBookFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(454, 278);
+            this.CancelButton = this.btnCancelUpdaeWindow;
+            this.ClientSize = new System.Drawing.Size(454, 281);
+            this.ControlBox = false;
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.txBxUpdISBN);
             this.Controls.Add(this.txBxUpdGenre);
             this.Controls.Add(this.txBxUpdPbulisher);
@@ -217,7 +232,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "UpdateBookFrm";
-            this.Text = "UpdateBookFrm";
+            this.Text = "Könyv adatainak módosítása";
             this.Load += new System.EventHandler(this.UpdateBookFrm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -227,7 +242,6 @@
         #endregion
 
         private System.Windows.Forms.TextBox txBxUpdISBN;
-        private System.Windows.Forms.TextBox txBxUpdGenre;
         private System.Windows.Forms.TextBox txBxUpdPbulisher;
         private System.Windows.Forms.TextBox txBxUpdAuthor;
         private System.Windows.Forms.TextBox txBxUpdTitle;
@@ -243,5 +257,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox txBxUpdGenre;
     }
 }

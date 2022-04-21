@@ -1,7 +1,6 @@
 C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\bin\Debug\LinqToSQLMultiTabGyak.exe.config
 C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\bin\Debug\LinqToSQLMultiTabGyak.exe
 C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\bin\Debug\LinqToSQLMultiTabGyak.pdb
-C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.csprojAssemblyReference.cache
 C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.Form1.resources
 C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.Properties.Resources.resources
 C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.csproj.GenerateResource.cache
@@ -29,3 +28,5 @@ C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak másolata\LinqToSQLMultiTabGya
 C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak másolata\LinqToSQLMultiTabGyak\bin\Debug\itextsharp.xml
 C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak másolata\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.csproj.CopyComplete
 C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak másolata\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.UpdateBookFrm.resources
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.UpdateBookFrm.resources
+C:\Users\VLZ94\source\repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.csprojAssemblyReference.cache

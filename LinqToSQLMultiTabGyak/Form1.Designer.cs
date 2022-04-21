@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.btnRefresh = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.txBxSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -37,8 +37,6 @@
             this.dataSet = new System.Data.DataSet();
             this.dataTable1 = new System.Data.DataTable();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnInsert = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.chckBxLend = new System.Windows.Forms.CheckBox();
             this.chckBxForeignLang = new System.Windows.Forms.CheckBox();
@@ -50,6 +48,9 @@
             this.menuStripExportPDF = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripExporAsTxt = new System.Windows.Forms.ToolStripMenuItem();
             this.btnInsUpdate = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.btnInsert = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataTable1)).BeginInit();
@@ -73,28 +74,17 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1040, 319);
+            this.dataGridView1.Size = new System.Drawing.Size(1040, 436);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridView1_CellBeginEdit);
             this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
             // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnRefresh.Location = new System.Drawing.Point(174, 352);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(98, 23);
-            this.btnRefresh.TabIndex = 1;
-            this.btnRefresh.Text = "Rács frissítése";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
             // btnSearch
             // 
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSearch.Location = new System.Drawing.Point(959, 22);
+            this.btnSearch.Location = new System.Drawing.Point(914, 15);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.Size = new System.Drawing.Size(120, 35);
             this.btnSearch.TabIndex = 2;
             this.btnSearch.Text = "Keresés";
             this.btnSearch.UseVisualStyleBackColor = true;
@@ -104,9 +94,9 @@
             // 
             this.txBxSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txBxSearch.Location = new System.Drawing.Point(350, 19);
+            this.txBxSearch.Location = new System.Drawing.Point(351, 23);
             this.txBxSearch.Name = "txBxSearch";
-            this.txBxSearch.Size = new System.Drawing.Size(239, 20);
+            this.txBxSearch.Size = new System.Drawing.Size(236, 20);
             this.txBxSearch.TabIndex = 3;
             // 
             // label1
@@ -114,7 +104,7 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(246, 22);
+            this.label1.Location = new System.Drawing.Point(247, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(98, 13);
             this.label1.TabIndex = 4;
@@ -133,7 +123,7 @@
             "Idegen nyelv",
             "E-book",
             "Kölcsönadott"});
-            this.comBox.Location = new System.Drawing.Point(119, 19);
+            this.comBox.Location = new System.Drawing.Point(120, 24);
             this.comBox.Name = "comBox";
             this.comBox.Size = new System.Drawing.Size(121, 21);
             this.comBox.TabIndex = 5;
@@ -152,33 +142,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 22);
+            this.label2.Location = new System.Drawing.Point(8, 27);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(106, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "Keresett tulajdonság:";
-            // 
-            // btnInsert
-            // 
-            this.btnInsert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnInsert.Location = new System.Drawing.Point(12, 352);
-            this.btnInsert.Name = "btnInsert";
-            this.btnInsert.Size = new System.Drawing.Size(75, 23);
-            this.btnInsert.TabIndex = 0;
-            this.btnInsert.Text = "Hozzáad";
-            this.btnInsert.UseVisualStyleBackColor = true;
-            this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDelete.Location = new System.Drawing.Point(362, 352);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
-            this.btnDelete.TabIndex = 8;
-            this.btnDelete.Text = "Törlés";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // groupBox2
             // 
@@ -192,9 +160,9 @@
             this.groupBox2.Controls.Add(this.txBxSearch);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.comBox);
-            this.groupBox2.Location = new System.Drawing.Point(12, 381);
+            this.groupBox2.Location = new System.Drawing.Point(12, 510);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1043, 57);
+            this.groupBox2.Size = new System.Drawing.Size(1040, 60);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Keresés";
@@ -203,7 +171,7 @@
             // 
             this.chckBxLend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chckBxLend.AutoSize = true;
-            this.chckBxLend.Location = new System.Drawing.Point(778, 21);
+            this.chckBxLend.Location = new System.Drawing.Point(775, 25);
             this.chckBxLend.Name = "chckBxLend";
             this.chckBxLend.Size = new System.Drawing.Size(102, 17);
             this.chckBxLend.TabIndex = 9;
@@ -214,7 +182,7 @@
             // 
             this.chckBxForeignLang.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chckBxForeignLang.AutoSize = true;
-            this.chckBxForeignLang.Location = new System.Drawing.Point(673, 21);
+            this.chckBxForeignLang.Location = new System.Drawing.Point(670, 25);
             this.chckBxForeignLang.Name = "chckBxForeignLang";
             this.chckBxForeignLang.Size = new System.Drawing.Size(99, 17);
             this.chckBxForeignLang.TabIndex = 8;
@@ -225,7 +193,7 @@
             // 
             this.chckBxEbook.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chckBxEbook.AutoSize = true;
-            this.chckBxEbook.Location = new System.Drawing.Point(596, 22);
+            this.chckBxEbook.Location = new System.Drawing.Point(593, 26);
             this.chckBxEbook.Name = "chckBxEbook";
             this.chckBxEbook.Size = new System.Drawing.Size(71, 17);
             this.chckBxEbook.TabIndex = 7;
@@ -248,6 +216,7 @@
             this.menuStripHelp.Name = "menuStripHelp";
             this.menuStripHelp.Size = new System.Drawing.Size(46, 20);
             this.menuStripHelp.Text = "Súgó";
+            this.menuStripHelp.Click += new System.EventHandler(this.menuStripHelp_Click);
             // 
             // menuStripExport
             // 
@@ -283,19 +252,60 @@
             // btnInsUpdate
             // 
             this.btnInsUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnInsUpdate.Location = new System.Drawing.Point(93, 352);
+            this.btnInsUpdate.Image = global::LinqToSQLMultiTabGyak.Properties.Resources.ikon_modify;
+            this.btnInsUpdate.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnInsUpdate.Location = new System.Drawing.Point(131, 469);
             this.btnInsUpdate.Name = "btnInsUpdate";
-            this.btnInsUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btnInsUpdate.Size = new System.Drawing.Size(110, 35);
             this.btnInsUpdate.TabIndex = 10;
             this.btnInsUpdate.Text = "Módosítás";
             this.btnInsUpdate.UseVisualStyleBackColor = true;
             this.btnInsUpdate.Click += new System.EventHandler(this.btnInsUpdate_Click);
             // 
+            // btnDelete
+            // 
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDelete.Image = global::LinqToSQLMultiTabGyak.Properties.Resources.ikon_delete;
+            this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnDelete.Location = new System.Drawing.Point(383, 469);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(110, 35);
+            this.btnDelete.TabIndex = 8;
+            this.btnDelete.Text = "Törlés";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnRefresh.Image = global::LinqToSQLMultiTabGyak.Properties.Resources.ikon_refresh;
+            this.btnRefresh.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnRefresh.Location = new System.Drawing.Point(247, 469);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(130, 35);
+            this.btnRefresh.TabIndex = 1;
+            this.btnRefresh.Text = "Rács frissítése";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // btnInsert
+            // 
+            this.btnInsert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnInsert.Image = global::LinqToSQLMultiTabGyak.Properties.Resources.ikon_add;
+            this.btnInsert.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnInsert.Location = new System.Drawing.Point(12, 469);
+            this.btnInsert.Name = "btnInsert";
+            this.btnInsert.Size = new System.Drawing.Size(110, 35);
+            this.btnInsert.TabIndex = 0;
+            this.btnInsert.Text = "Hozzáad";
+            this.btnInsert.UseVisualStyleBackColor = true;
+            this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1064, 450);
+            this.ClientSize = new System.Drawing.Size(1064, 585);
             this.Controls.Add(this.btnInsUpdate);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnDelete);
@@ -303,6 +313,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.btnInsert);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
             this.Name = "Form1";
             this.Text = "Form1";
