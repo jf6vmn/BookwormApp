@@ -18,7 +18,7 @@ namespace LinqToSQLMultiTabGyak
 {
     public partial class Form1 : Form
     {
-        SqlConnection sqlConnection = new SqlConnection("Data Source=VLZ_ASUS;Initial Catalog=BookwormDB_xy;Integrated Security=True");
+        SqlConnection sqlConnection = new SqlConnection("Data Source=VLZ_ASUS;Initial Catalog=bookwormdb;Integrated Security=True");
         SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
 
         public Form1()
@@ -77,119 +77,192 @@ namespace LinqToSQLMultiTabGyak
             string choosedStuff = comBox.Text;
             try
             {
-                switch (choosedStuff)
-                {
-                    case "Cím":
-                        {
-                            var query = from book in dbContext.Books
-                                        where book.Title.Contains(txBxSearch.Text)
-                                        join auth in dbContext.Authors on book.Author_id equals auth.ID
-                                        join pub in dbContext.Publishers on book.Publisher_id equals pub.ID
-                                        join gen in dbContext.Genres on book.Genre_id equals gen.ID
-                                        //   == like txBxSearch.Text
-                                        orderby book.Title
-                                        select new { book.Title, auth.Author1, pub.Publisher1, book.Release_date, gen.Genre1, book.ISBN, book.E_book, book.Foreign_language, book.Borrowed };
 
 
-                            /* var queryDisp = from bok in dbContext.Books
-                                         join auth in dbContext.Authors on bok.Author_id equals auth.ID
-                                         select new { bok.Title, auth.Author1, bok.Release_date,bok.ISBN};*/
-                            dataGridView1.DataSource = query;
-
-                            break;
-                        }
-
-                    case "ISBN":
-                        {
-                            var query = from isbn in dbContext.Books
-                                        where isbn.ISBN.Contains(txBxSearch.Text)
-                                        join auth in dbContext.Authors on isbn.Author_id equals auth.ID
-                                        join pub in dbContext.Publishers on isbn.Publisher_id equals pub.ID
-                                        join gen in dbContext.Genres on isbn.Genre_id equals gen.ID
-                                        //   == like txBxSearch.Text
-                                        orderby isbn.Title
-                                        select new { isbn.Title, auth.Author1, pub.Publisher1, isbn.Release_date, gen.Genre1, isbn.ISBN, isbn.E_book, isbn.Foreign_language, isbn.Borrowed };
-
-                            dataGridView1.DataSource = query;
-
-                            break;
-                        }
-
-                    case "Kiadás éve":                                //konverzió macera mindkét esetben
-                        {
-                            //    int relDate = Convert.ToInt16(txBxSearch.Text);
-                            int relDate =Convert.ToInt16( txBxSearch.Text);
-                            var query = from pubDate in dbContext.Books
-                                           where pubDate.Release_date.Equals(relDate)
-                                           join auth in dbContext.Authors on pubDate.Author_id equals auth.ID
-                                           join pub in dbContext.Publishers on pubDate.Publisher_id equals pub.ID
-                                           join gen in dbContext.Genres on pubDate.Genre_id equals gen.ID
-                                           //   == like txBxSearch.Text
-                                           orderby pubDate.Title
-                                           select new { pubDate.Title, auth.Author1, pub.Publisher1, pubDate.Release_date, gen.Genre1, pubDate.ISBN, pubDate.E_book, pubDate.Foreign_language, pubDate.Borrowed };
-
-                               dataGridView1.DataSource = query;
-                       //     int pickedDate = Convert.ToInt16(txBxSearch.Text.ToString());
-                       //     sqlDataAdapter.SelectCommand = new SqlCommand("select Books.Title, Authors.Author, Genres.Genre, Publishers.Publisher, Books.Release_date, Books.ISBN, Books.Foreign_language,Books.E_book,Books.Borrowed from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID where Books.Release_date='" + pickedDate + "'", sqlConnection);
-                           
-                            // MessageBox.Show("Fejlesztés alatt!");
-                            break;
-                        }
-
-                    case "Szerző":
-                        {
-
-                            var query = from auth in dbContext.Authors
-                                        where auth.Author1.Contains(txBxSearch.Text)
-                                        join book in dbContext.Books on auth.ID equals book.Author_id
-                                        join pub in dbContext.Publishers on book.Publisher_id equals pub.ID
-                                        join gen in dbContext.Genres on book.Genre_id equals gen.ID
-                                        //   == like txBxSearch.Text
-                                        //       orderby book.Title
-                                        select new { book.Title, auth.Author1, pub.Publisher1, book.Release_date, gen.Genre1, book.ISBN, book.E_book, book.Foreign_language, book.Borrowed };
-
-
-                            /* var queryDisp = from bok in dbContext.Books
-                                         join auth in dbContext.Authors on bok.Author_id equals auth.ID
-                                         select new { bok.Title, auth.Author1, bok.Release_date,bok.ISBN};
-                            dataGridView1.DataSource = query;
-
-
-                            dataGridView1.DataSource = from book in dbContext.Authors
-                                                       where book.Author1 == txBxSearch.Text
-
-                                                       select book;*/
-                            dataGridView1.DataSource = query;
-                            break;
-                        }
-                    case "Műfaj":
-                        {
-                            var query = from gen in dbContext.Genres
-                                        where gen.Genre1.Contains(txBxSearch.Text)
-                                        join book in dbContext.Books on gen.ID equals book.Genre_id
-                                        join pub in dbContext.Publishers on book.Publisher_id equals pub.ID
-                                        join auth in dbContext.Authors on book.Author_id equals auth.ID
-                                        select new { book.Title, auth.Author1, pub.Publisher1, book.Release_date, gen.Genre1, book.ISBN, book.E_book, book.Foreign_language, book.Borrowed };
-                            dataGridView1.DataSource = query;
-                            break;
-                        }
-                    case "Kiadó":
-                        {
-                            var query = from pub in dbContext.Publishers
-                                        where pub.Publisher1.Contains(txBxSearch.Text)
-                                        join book in dbContext.Books on pub.ID equals book.Publisher_id
-                                        join gen in dbContext.Genres on book.Genre_id equals gen.ID
-                                        join auth in dbContext.Authors on book.Author_id equals auth.ID
-                                        select new { book.Title, auth.Author1, pub.Publisher1, book.Release_date, gen.Genre1, book.ISBN, book.E_book, book.Foreign_language, book.Borrowed };
-                            dataGridView1.DataSource = query;
-                            break;
-                        }
-
-                    default:
-                        // MessageBox.Show("Válasszon a listából / adja meg a keresensdő kifejezést!");
-                        break;
-                }
                 if (chckBxEbook.Checked == true)
+                {
+                    sqlDataAdapter.SelectCommand = new SqlCommand("select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj, Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv, Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID where Books.E_book='" + true + "'", sqlConnection);
+                    sqlConnection.Open();
+                    sqlDataAdapter.UpdateCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
+                else
+           if (chckBxLend.Checked == true)
+                {
+                    sqlDataAdapter.SelectCommand = new SqlCommand("select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj, Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv, Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID where Books.Borrowed='" + 1 + "'", sqlConnection);
+                    sqlConnection.Open();
+                    sqlDataAdapter.SelectCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
+                else
+           if (chckBxForeignLang.Checked == true)
+                {
+                    sqlDataAdapter.SelectCommand = new SqlCommand("select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj, Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv, Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID where Books.Foreign_language='" + 1 + "'", sqlConnection);
+                    sqlConnection.Open();
+                    sqlDataAdapter.SelectCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
+                else
+           if (chckBxEbook.Checked = chckBxLend.Checked = true)
+                {
+                    sqlDataAdapter.SelectCommand = new SqlCommand("select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj, Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv, Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID where Books.E_book='" + true + "' and  Books.Borrowed='" + 1 + "'", sqlConnection);
+                    sqlConnection.Open();
+                    sqlDataAdapter.UpdateCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
+                else
+           if (chckBxEbook.Checked = chckBxForeignLang.Checked = true)
+                {
+                    sqlDataAdapter.SelectCommand = new SqlCommand("select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj, Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv, Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID where Books.E_book='" + true + "' and  Books.Foreign_language='" + 1 + "'", sqlConnection);
+                    sqlConnection.Open();
+                    sqlDataAdapter.UpdateCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
+                else
+           if (chckBxForeignLang.Checked = chckBxLend.Checked = true)
+                {
+                    sqlDataAdapter.SelectCommand = new SqlCommand("select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj, Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv, Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID where Books.Borrowed='" + 1 + "' and  Books.Foreign_language='" + 1 + "'", sqlConnection);
+                    sqlConnection.Open();
+                    sqlDataAdapter.UpdateCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
+                else
+           if (chckBxLend.Checked = chckBxForeignLang.Checked = chckBxEbook.Checked = true)
+                {
+                    sqlDataAdapter.SelectCommand = new SqlCommand("select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj, Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv, Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID where Books.E_book='" + true + "' and  Books.Foreign_language='" + 1 + "' and Books.Borrowed='" + 1 + "'", sqlConnection);
+                    sqlConnection.Open();
+                    sqlDataAdapter.UpdateCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
+                else
+                {
+
+
+
+
+
+
+
+
+
+
+
+
+                    switch (choosedStuff)
+                    {
+                        case "Cím":
+                            {
+                                var query = from book in dbContext.Books
+                                            where book.Title.Contains(txBxSearch.Text)
+                                            join auth in dbContext.Authors on book.Author_id equals auth.ID
+                                            join pub in dbContext.Publishers on book.Publisher_id equals pub.ID
+                                            join gen in dbContext.Genres on book.Genre_id equals gen.ID
+                                            //   == like txBxSearch.Text
+                                            orderby book.Title
+                                            select new { book.Title, auth.Author1, pub.Publisher1, book.Release_date, gen.Genre1, book.ISBN, book.E_book, book.Foreign_language, book.Borrowed };
+
+
+                                /* var queryDisp = from bok in dbContext.Books
+                                             join auth in dbContext.Authors on bok.Author_id equals auth.ID
+                                             select new { bok.Title, auth.Author1, bok.Release_date,bok.ISBN};*/
+                                dataGridView1.DataSource = query;
+
+                                break;
+                            }
+
+                        case "ISBN":
+                            {
+                                var query = from isbn in dbContext.Books
+                                            where isbn.ISBN.Contains(txBxSearch.Text)
+                                            join auth in dbContext.Authors on isbn.Author_id equals auth.ID
+                                            join pub in dbContext.Publishers on isbn.Publisher_id equals pub.ID
+                                            join gen in dbContext.Genres on isbn.Genre_id equals gen.ID
+                                            //   == like txBxSearch.Text
+                                            orderby isbn.Title
+                                            select new { isbn.Title, auth.Author1, pub.Publisher1, isbn.Release_date, gen.Genre1, isbn.ISBN, isbn.E_book, isbn.Foreign_language, isbn.Borrowed };
+
+                                dataGridView1.DataSource = query;
+
+                                break;
+                            }
+
+                        case "Kiadás éve":                                //konverzió macera mindkét esetben
+                            {
+                                //    int relDate = Convert.ToInt16(txBxSearch.Text);
+                                int relDate = Convert.ToInt16(txBxSearch.Text);
+                                var query = from pubDate in dbContext.Books
+                                            where pubDate.Release_date.Equals(relDate)
+                                            join auth in dbContext.Authors on pubDate.Author_id equals auth.ID
+                                            join pub in dbContext.Publishers on pubDate.Publisher_id equals pub.ID
+                                            join gen in dbContext.Genres on pubDate.Genre_id equals gen.ID
+                                            //   == like txBxSearch.Text
+                                            orderby pubDate.Title
+                                            select new { pubDate.Title, auth.Author1, pub.Publisher1, pubDate.Release_date, gen.Genre1, pubDate.ISBN, pubDate.E_book, pubDate.Foreign_language, pubDate.Borrowed };
+
+                                dataGridView1.DataSource = query;
+                                //     int pickedDate = Convert.ToInt16(txBxSearch.Text.ToString());
+                                //     sqlDataAdapter.SelectCommand = new SqlCommand("select Books.Title, Authors.Author, Genres.Genre, Publishers.Publisher, Books.Release_date, Books.ISBN, Books.Foreign_language,Books.E_book,Books.Borrowed from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID where Books.Release_date='" + pickedDate + "'", sqlConnection);
+
+                                // MessageBox.Show("Fejlesztés alatt!");
+                                break;
+                            }
+
+                        case "Szerző":
+                            {
+
+                                var query = from auth in dbContext.Authors
+                                            where auth.Author1.Contains(txBxSearch.Text)
+                                            join book in dbContext.Books on auth.ID equals book.Author_id
+                                            join pub in dbContext.Publishers on book.Publisher_id equals pub.ID
+                                            join gen in dbContext.Genres on book.Genre_id equals gen.ID
+                                            //   == like txBxSearch.Text
+                                            //       orderby book.Title
+                                            select new { book.Title, auth.Author1, pub.Publisher1, book.Release_date, gen.Genre1, book.ISBN, book.E_book, book.Foreign_language, book.Borrowed };
+
+
+                                /* var queryDisp = from bok in dbContext.Books
+                                             join auth in dbContext.Authors on bok.Author_id equals auth.ID
+                                             select new { bok.Title, auth.Author1, bok.Release_date,bok.ISBN};
+                                dataGridView1.DataSource = query;
+
+
+                                dataGridView1.DataSource = from book in dbContext.Authors
+                                                           where book.Author1 == txBxSearch.Text
+
+                                                           select book;*/
+                                dataGridView1.DataSource = query;
+                                break;
+                            }
+                        case "Műfaj":
+                            {
+                                var query = from gen in dbContext.Genres
+                                            where gen.Genre1.Contains(txBxSearch.Text)
+                                            join book in dbContext.Books on gen.ID equals book.Genre_id
+                                            join pub in dbContext.Publishers on book.Publisher_id equals pub.ID
+                                            join auth in dbContext.Authors on book.Author_id equals auth.ID
+                                            select new { book.Title, auth.Author1, pub.Publisher1, book.Release_date, gen.Genre1, book.ISBN, book.E_book, book.Foreign_language, book.Borrowed };
+                                dataGridView1.DataSource = query;
+                                break;
+                            }
+                        case "Kiadó":
+                            {
+                                var query = from pub in dbContext.Publishers
+                                            where pub.Publisher1.Contains(txBxSearch.Text)
+                                            join book in dbContext.Books on pub.ID equals book.Publisher_id
+                                            join gen in dbContext.Genres on book.Genre_id equals gen.ID
+                                            join auth in dbContext.Authors on book.Author_id equals auth.ID
+                                            select new { book.Title, auth.Author1, pub.Publisher1, book.Release_date, gen.Genre1, book.ISBN, book.E_book, book.Foreign_language, book.Borrowed };
+                                dataGridView1.DataSource = query;
+                                break;
+                            }
+
+                        default:
+                            // MessageBox.Show("Válasszon a listából / adja meg a keresensdő kifejezést!");
+                            break;
+                    }
+                }
+                #region  //checkbox-ok  állapota
+              /*  if (chckBxEbook.Checked == true)
                 {
                     sqlDataAdapter.SelectCommand = new SqlCommand("select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj, Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv, Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID where Books.E_book='" + true + "'", sqlConnection);
                     sqlConnection.Open();
@@ -203,7 +276,47 @@ namespace LinqToSQLMultiTabGyak
                     sqlDataAdapter.SelectCommand.ExecuteNonQuery();
                     sqlConnection.Close();
                 }
+                if(chckBxForeignLang.Checked==true)
+                {
+                    sqlDataAdapter.SelectCommand = new SqlCommand("select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj, Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv, Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID where Books.Foreign_language='" + 1 + "'", sqlConnection);
+                    sqlConnection.Open();
+                    sqlDataAdapter.SelectCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
 
+                if(chckBxEbook.Checked=chckBxLend.Checked=true)
+                {
+                    sqlDataAdapter.SelectCommand = new SqlCommand("select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj, Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv, Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID where Books.E_book='" + true + "' and  Books.Borrowed='" + 1 + "'", sqlConnection);
+                    sqlConnection.Open();
+                    sqlDataAdapter.UpdateCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
+
+                if (chckBxEbook.Checked=chckBxForeignLang.Checked=true)
+                {
+                    sqlDataAdapter.SelectCommand = new SqlCommand("select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj, Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv, Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID where Books.E_book='" + true + "' and  Books.Foreign_language='" + 1 + "'", sqlConnection);
+                    sqlConnection.Open();
+                    sqlDataAdapter.UpdateCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
+
+                if(chckBxForeignLang.Checked=chckBxLend.Checked=true)
+                {
+                    sqlDataAdapter.SelectCommand = new SqlCommand("select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj, Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv, Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID where Books.Borrowed='" + 1 + "' and  Books.Foreign_language='" + 1 + "'", sqlConnection);
+                    sqlConnection.Open();
+                    sqlDataAdapter.UpdateCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
+                
+                if(chckBxLend.Checked=chckBxForeignLang.Checked=chckBxEbook.Checked=true)
+                {
+                    sqlDataAdapter.SelectCommand = new SqlCommand("select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj, Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv, Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID where Books.E_book='" + true + "' and  Books.Foreign_language='" + 1 + "' and Books.Borrowed='" +1+"'", sqlConnection);
+                    sqlConnection.Open();
+                    sqlDataAdapter.UpdateCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }*/
+
+                #endregion
             }
             catch (Exception ex)
             {
@@ -211,8 +324,68 @@ namespace LinqToSQLMultiTabGyak
             }
         }
 
+        private void ChechkboxCheckingIfs()
+        {
+            if (chckBxEbook.Checked == true)
+            {
+                sqlDataAdapter.SelectCommand = new SqlCommand("select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj, Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv, Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID where Books.E_book='" + true + "'", sqlConnection);
+                sqlConnection.Open();
+                sqlDataAdapter.UpdateCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+            }
+            else
+            if (chckBxLend.Checked == true)
+            {
+                sqlDataAdapter.SelectCommand = new SqlCommand("select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj, Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv, Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID where Books.Borrowed='" + 1 + "'", sqlConnection);
+                sqlConnection.Open();
+                sqlDataAdapter.SelectCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+            }
+            else
+            if (chckBxForeignLang.Checked == true)
+            {
+                sqlDataAdapter.SelectCommand = new SqlCommand("select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj, Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv, Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID where Books.Foreign_language='" + 1 + "'", sqlConnection);
+                sqlConnection.Open();
+                sqlDataAdapter.SelectCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+            }
+            else
+            if (chckBxEbook.Checked = chckBxLend.Checked = true)
+            {
+                sqlDataAdapter.SelectCommand = new SqlCommand("select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj, Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv, Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID where Books.E_book='" + true + "' and  Books.Borrowed='" + 1 + "'", sqlConnection);
+                sqlConnection.Open();
+                sqlDataAdapter.UpdateCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+            }
+            else
+            if (chckBxEbook.Checked = chckBxForeignLang.Checked = true)
+            {
+                sqlDataAdapter.SelectCommand = new SqlCommand("select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj, Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv, Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID where Books.E_book='" + true + "' and  Books.Foreign_language='" + 1 + "'", sqlConnection);
+                sqlConnection.Open();
+                sqlDataAdapter.UpdateCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+            }
+            else
+            if (chckBxForeignLang.Checked = chckBxLend.Checked = true)
+            {
+                sqlDataAdapter.SelectCommand = new SqlCommand("select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj, Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv, Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID where Books.Borrowed='" + 1 + "' and  Books.Foreign_language='" + 1 + "'", sqlConnection);
+                sqlConnection.Open();
+                sqlDataAdapter.UpdateCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+            }
+            else
+            if (chckBxLend.Checked = chckBxForeignLang.Checked = chckBxEbook.Checked = true)
+            {
+                sqlDataAdapter.SelectCommand = new SqlCommand("select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj, Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv, Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID where Books.E_book='" + true + "' and  Books.Foreign_language='" + 1 + "' and Books.Borrowed='" + 1 + "'", sqlConnection);
+                sqlConnection.Open();
+                sqlDataAdapter.UpdateCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+            }
+        }
+
         DataSet dataSetTask = new DataSet();
         DataGridView gridViewThread = new DataGridView();
+
         private void SearchFromDBThread(string listChosenOne, string searchTex)
         {
             string typeChosen = listChosenOne;
@@ -415,18 +588,19 @@ namespace LinqToSQLMultiTabGyak
             taskSrc.Start();
             if (taskSrc.IsCanceled == true || taskSrc.IsFaulted) { MessageBox.Show("Hiba a keresés folyamán!"); }
 
-          /*  if (chckBxEbook.Checked == true)
-            {
-                for (int i = 0; i < dataGridView1.RowCount; i++)
-                {
-                    if(dataGridView1.SelectedCells[6].Value.ToString()!="true")
-                    {
-                        dataGridView1.SelectedCells[6].Value = true;
-                    }
-                }
-            }*/
-            
-         //   srcCheckboxes();
+            /*  if (chckBxEbook.Checked == true)
+              {
+                  for (int i = 0; i < dataGridView1.RowCount; i++)
+                  {
+                      if(dataGridView1.SelectedCells[6].Value.ToString()!="true")
+                      {
+                          dataGridView1.SelectedCells[6].Value = true;
+                      }
+                  }
+              }*/
+
+            //   srcCheckboxes();
+         //   ChechkboxCheckingIfs();
         }
         
 

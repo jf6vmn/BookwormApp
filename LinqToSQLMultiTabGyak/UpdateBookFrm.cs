@@ -25,7 +25,7 @@ namespace LinqToSQLMultiTabGyak
         int authCount =0, pubCount = 0;
 
 
-         SqlConnection sqlConnectionUpdate = new SqlConnection("Data Source=VLZ_ASUS;Initial Catalog=BookwormDB;Integrated Security=True");
+         SqlConnection sqlConnectionUpdate = new SqlConnection("Data Source=VLZ_ASUS;Initial Catalog=bookwormdb;Integrated Security=True");
         SqlDataAdapter sqlDataAdapterUpdate = new SqlDataAdapter();
 
         public UpdateBookFrm()
@@ -86,8 +86,8 @@ namespace LinqToSQLMultiTabGyak
             this.Close();
         }
 
-       public bool changeTitle = false, changeAuthor=false;     
-        
+       public bool changeTitle = false, changeAuthor=false;
+
         #region update figyelős metódus
 
         /*        private void TxBxStuffed()
@@ -291,6 +291,7 @@ namespace LinqToSQLMultiTabGyak
                         sqlConnectionUpdate.Open();
                         sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
                         sqlConnectionUpdate.Close();
+                    
                     }
 
                     /*  sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Publishers set Publishers.Publisher  = '" + txBxUpdPbulisher.Text + "' from Publishers inner join[dbo].Books on Books.Publisher_id = Publishers.ID where  Books.ISBN='" + GetISBN + "' and  Publishers.Publisher='" + GetPublishser + "'", sqlConnectionUpdate);
@@ -300,11 +301,12 @@ namespace LinqToSQLMultiTabGyak
                 }       //kiadók
 
                 if (txBxUpdPubDate.Text != GetPubDAte)
-                { 
-                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Release_Date  = '" + txBxUpdPubDate.Text + "' where books.Release_date='" + GetPubDAte + "' and Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
-                    sqlConnectionUpdate.Open();
-                    sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
-                    sqlConnectionUpdate.Close();
+                {             
+                        sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Release_Date  = '" + txBxUpdPubDate.Text + "' where books.Release_date='" + GetPubDAte + "' and Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                        sqlConnectionUpdate.Open();
+                        sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
+                        sqlConnectionUpdate.Close();
+                    
                 }             //kiadás éve
 
                 if (comboBox1.SelectedItem.ToString() != GetGenre)                //if (txBxUpdGenre.Text != GetGenre)
@@ -341,7 +343,23 @@ namespace LinqToSQLMultiTabGyak
 
         private void btnUpdateFromWindow_Click(object sender, EventArgs e)
         {
-            UpdateDatabase();          
+            try
+            {
+                int validDAte = Int32.Parse(txBxUpdPubDate.Text);
+                if (validDAte < 1000 || validDAte > DateTime.Now.Year || txBxUpdISBN.Text == "")
+                {
+                    MessageBox.Show("Elenőrizze az adatokat!");
+                }
+                else
+                {
+                    //   MessageBox.Show("Jó a dátum!");
+                    UpdateDatabase();
+                }
+            }
+
+            catch(Exception ex) { MessageBox.Show("Hiba történt a módosítás közben! \n" + ex); }
+
+            
         }
     }
 }
