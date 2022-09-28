@@ -28,14 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnSearch = new System.Windows.Forms.Button();
             this.txBxSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comBox = new System.Windows.Forms.ComboBox();
-            this.dataSet = new System.Data.DataSet();
-            this.dataTable1 = new System.Data.DataTable();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.chckBxLend = new System.Windows.Forms.CheckBox();
@@ -51,11 +50,19 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnInsert = new System.Windows.Forms.Button();
+            this.dataTable1 = new System.Data.DataTable();
+            this.dataSet = new System.Data.DataSet();
+            this.bndSrc = new System.Windows.Forms.BindingSource(this.components);
+            this.bookwormDataSet = new LinqToSQLMultiTabGyak.BookwormDataSet();
+            this.bwDataSet = new LinqToSQLMultiTabGyak.BookwormDataSet();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataTable1)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.menuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataTable1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bndSrc)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bookwormDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bwDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -85,7 +92,7 @@
             this.btnSearch.Location = new System.Drawing.Point(914, 15);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(120, 35);
-            this.btnSearch.TabIndex = 2;
+            this.btnSearch.TabIndex = 10;
             this.btnSearch.Text = "Keresés";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -97,7 +104,7 @@
             this.txBxSearch.Location = new System.Drawing.Point(351, 23);
             this.txBxSearch.Name = "txBxSearch";
             this.txBxSearch.Size = new System.Drawing.Size(236, 20);
-            this.txBxSearch.TabIndex = 3;
+            this.txBxSearch.TabIndex = 6;
             // 
             // label1
             // 
@@ -112,6 +119,7 @@
             // 
             // comBox
             // 
+            this.comBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comBox.FormattingEnabled = true;
             this.comBox.Items.AddRange(new object[] {
             "Cím",
@@ -119,25 +127,11 @@
             "Műfaj",
             "Kiadó",
             "Kiadás éve",
-            "ISBN",
-            "Idegen nyelv",
-            "E-book",
-            "Kölcsönadott"});
+            "ISBN"});
             this.comBox.Location = new System.Drawing.Point(120, 24);
             this.comBox.Name = "comBox";
             this.comBox.Size = new System.Drawing.Size(121, 21);
             this.comBox.TabIndex = 5;
-            this.comBox.Text = "Kérem válasszon!";
-            // 
-            // dataSet
-            // 
-            this.dataSet.DataSetName = "DataSetLibrary";
-            this.dataSet.Tables.AddRange(new System.Data.DataTable[] {
-            this.dataTable1});
-            // 
-            // dataTable1
-            // 
-            this.dataTable1.TableName = "Table1";
             // 
             // label2
             // 
@@ -257,7 +251,7 @@
             this.btnInsUpdate.Location = new System.Drawing.Point(131, 469);
             this.btnInsUpdate.Name = "btnInsUpdate";
             this.btnInsUpdate.Size = new System.Drawing.Size(110, 35);
-            this.btnInsUpdate.TabIndex = 10;
+            this.btnInsUpdate.TabIndex = 2;
             this.btnInsUpdate.Text = "Módosítás";
             this.btnInsUpdate.UseVisualStyleBackColor = true;
             this.btnInsUpdate.Click += new System.EventHandler(this.btnInsUpdate_Click);
@@ -270,7 +264,7 @@
             this.btnDelete.Location = new System.Drawing.Point(383, 469);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(110, 35);
-            this.btnDelete.TabIndex = 8;
+            this.btnDelete.TabIndex = 4;
             this.btnDelete.Text = "Törlés";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
@@ -283,7 +277,7 @@
             this.btnRefresh.Location = new System.Drawing.Point(247, 469);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(130, 35);
-            this.btnRefresh.TabIndex = 1;
+            this.btnRefresh.TabIndex = 3;
             this.btnRefresh.Text = "Rács frissítése";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
@@ -296,10 +290,35 @@
             this.btnInsert.Location = new System.Drawing.Point(12, 469);
             this.btnInsert.Name = "btnInsert";
             this.btnInsert.Size = new System.Drawing.Size(110, 35);
-            this.btnInsert.TabIndex = 0;
+            this.btnInsert.TabIndex = 1;
             this.btnInsert.Text = "Hozzáad";
             this.btnInsert.UseVisualStyleBackColor = true;
             this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
+            // 
+            // dataTable1
+            // 
+            this.dataTable1.TableName = "Table1";
+            // 
+            // dataSet
+            // 
+            this.dataSet.DataSetName = "DataSetLibrary";
+            this.dataSet.Tables.AddRange(new System.Data.DataTable[] {
+            this.dataTable1});
+            // 
+            // bndSrc
+            // 
+            this.bndSrc.DataSource = this.bookwormDataSet;
+            this.bndSrc.Position = 0;
+            // 
+            // bookwormDataSet
+            // 
+            this.bookwormDataSet.DataSetName = "BookwormDataSet";
+            this.bookwormDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // bwDataSet
+            // 
+            this.bwDataSet.DataSetName = "BWDataSet";
+            this.bwDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // Form1
             // 
@@ -316,15 +335,19 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Könyvmoly";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataTable1)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataTable1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bndSrc)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bookwormDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bwDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -338,8 +361,6 @@
         private System.Windows.Forms.TextBox txBxSearch;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comBox;
-        private System.Data.DataSet dataSet;
-        private System.Data.DataTable dataTable1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnInsert;
         private System.Windows.Forms.Button btnDelete;
@@ -354,6 +375,11 @@
         private System.Windows.Forms.ToolStripMenuItem menuStripExportPDF;
         private System.Windows.Forms.ToolStripMenuItem menuStripExporAsTxt;
         private System.Windows.Forms.Button btnInsUpdate;
+        private System.Data.DataTable dataTable1;
+        private System.Data.DataSet dataSet;
+        private System.Windows.Forms.BindingSource bndSrc;
+        private BookwormDataSet bookwormDataSet;
+        private BookwormDataSet bwDataSet;
     }
 }
 

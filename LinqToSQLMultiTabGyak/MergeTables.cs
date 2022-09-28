@@ -60,7 +60,6 @@ namespace LinqToSQLMultiTabGyak
                    MessageBox.Show($"Az adatok betöltése nem sikerült:\nA hibáról bőveben:\n{ex}");
                }
            }
-        
 
     }
 }

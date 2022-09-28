@@ -19,7 +19,8 @@ namespace LinqToSQLMultiTabGyak
         {
             InitializeComponent();
         }
-        SqlConnection connAdd = new SqlConnection(@"Data Source=VLZ_ASUS;Initial Catalog=bookwormdb;Integrated Security=True");
+        //SqlConnection connAdd = new SqlConnection(@"Data Source=VLZ_ASUS;Initial Catalog=bookwormdb;Integrated Security=True");
+        SqlConnection connAdd = new SqlConnection("Data Source=VLZASUS;Initial Catalog=Bookworm;Integrated Security=True");
         SqlDataAdapter sqlDataAdapterAdd = new SqlDataAdapter();
 
         private void AddBookFrm_Load(object sender, EventArgs e)
@@ -51,7 +52,6 @@ namespace LinqToSQLMultiTabGyak
               }
         }
 
-
       /*  private void checkAuthAndPub()
         {
             string checkID = "";
@@ -75,8 +75,6 @@ namespace LinqToSQLMultiTabGyak
                         sqlDataAdapterAdd.UpdateCommand.ExecuteNonQuery();
                         conn.Close();
                         MessageBox.Show(checkID);
-
-
                     }
 
             //else { }
@@ -100,8 +98,6 @@ namespace LinqToSQLMultiTabGyak
                 sqlDataAdapterAdd.UpdateCommand.ExecuteNonQuery();
                 conn.Close();
                 MessageBox.Show(checkID);
-
-
             }
 
         }*/
@@ -109,7 +105,8 @@ namespace LinqToSQLMultiTabGyak
 
     private void addDataToDB()                   //adatbevitel v1 
         {
-            SampleDataContext dataContext = new SampleDataContext();
+             BWModelDataContext dataContext = new BWModelDataContext();
+            int bookDate = Convert.ToInt16(txBxAddPubDate);
 
             try
             {
@@ -132,7 +129,7 @@ namespace LinqToSQLMultiTabGyak
                         {
                             Author1 = txBxAddAuthor.Text
                         };
-
+                       
                         dataContext.Authors.InsertOnSubmit(insAuthor);
                         dataContext.SubmitChanges();
 
@@ -179,196 +176,157 @@ namespace LinqToSQLMultiTabGyak
             }
         }
 
-
         private void DatasToDB()                //adatbevitel v2 (SQL) 
         {
-            /*  try
-              {          
-                  connAdd.Close();
-                  sqlDataAdapterAdd.InsertCommand = new SqlCommand("Insert into Publishers  (Publishers.Publisher)  values ('" + txBxAddPublisher.Text + "')", connAdd);
-                  connAdd.Open();
-                  sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
-                  connAdd.Close();
-
-                  sqlDataAdapterAdd.InsertCommand = new SqlCommand("Insert into Authors  (Authors.Author)  values ('" + txBxAddAuthor.Text + "')", connAdd);
-                  connAdd.Open();
-                  sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
-                  connAdd.Close();
-
-                  sqlDataAdapterAdd.InsertCommand = new SqlCommand("Insert into Books  (books.Title, books.ISBN, books.Release_date)  values ('" + txBxAddTitle.Text + "','" + txBxAddISBN.Text + "','" + txBxAddPubDate.Text + "') ", connAdd);
-                  connAdd.Open();
-                  sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
-                  connAdd.Close();
-
-
-                  if (chckBxEbook.Checked == true)
-                  {
-                      sqlDataAdapterAdd.InsertCommand = new SqlCommand("insert into Books (books.E_book)  values ('" + 1 + "') ", connAdd);
-                      connAdd.Open();
-                      sqlDataAdapterAdd.UpdateCommand.ExecuteNonQuery();
-                      connAdd.Close();
-                  }
-
-                  if (chckBxForeignLang.Checked == true)
-                  {
-                      sqlDataAdapterAdd.UpdateCommand = new SqlCommand("insert into Books  (books.Foreign_language)  values ('" + 1 + "')", connAdd);
-                      connAdd.Open();
-                      sqlDataAdapterAdd.UpdateCommand.ExecuteNonQuery();
-                      connAdd.Close();
-                  }
-
-                  if (chckBxLend.Checked == true)
-                  {
-                      sqlDataAdapterAdd.UpdateCommand = new SqlCommand("insert into Books  (books.Borrowed)  values ('" + 1 + "')", connAdd);
-                      connAdd.Open();
-                      sqlDataAdapterAdd.UpdateCommand.ExecuteNonQuery();
-                      connAdd.Close();
-                  }
-              }
-
-              catch(Exception ex)
-              {
-                  MessageBox.Show("Hiba az adatok rögzítésében!\n"+ex);
-              }*/
-
-            string checkAuthID = null, checkAuthMax = "", checkPubID = null, checkPubMax = "";
-
-
-
-            sqlDataAdapterAdd.InsertCommand = new SqlCommand("insert into Authors values ('" + txBxAddAuthor.Text + "')",connAdd);
-            connAdd.Open();
-            sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
-            connAdd.Close();
-
-            sqlDataAdapterAdd.InsertCommand = new SqlCommand("insert into Publishers values ('" + txBxAddPublisher.Text + "')", connAdd);
-            connAdd.Open();
-            sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
-            connAdd.Close();
-
-
-            connAdd.Open();                                                     //van-e ilyen szerző?
-            SqlCommand cmda = new SqlCommand("select count(*) from authors where authors.author='" + txBxAddAuthor.Text + "'",connAdd);
-            int counta = (int)cmda.ExecuteScalar();
-            connAdd.Close();
-
-            if (counta > 0)
-            {  
-                connAdd.Open();
-                SqlCommand commandGetAuthID = new SqlCommand("select id from authors where Author='" + txBxAddAuthor.Text + "'", connAdd);
-                SqlDataReader dataReader = commandGetAuthID.ExecuteReader();
-
-                if (dataReader.Read())                                          //a szerző ID-je
-                {
-                    checkAuthID = dataReader.GetValue(0).ToString();
-                   
-             //       MessageBox.Show("Auth ID:\t", checkAuthID);
-                }
-                connAdd.Close();
-            }
-
-            else                                                                // nincs ilyen szerző, manuális ID növelés
+            try
             {
+                string checkAuthID = null, checkAuthMax = "", checkPubID = null, checkPubMax = "";
+                int lendChk = 0, foreignChk = 0, ebookChk = 0, genId=comboBox1.SelectedIndex;
+                if (chckBxEbook.Checked == true) { ebookChk = 1; }
+                if (chckBxForeignLang.Checked == true) { foreignChk = 1; }
+                if (chckBxLend.Checked == true) { lendChk = 1; }
+
                 sqlDataAdapterAdd.InsertCommand = new SqlCommand("insert into Authors values ('" + txBxAddAuthor.Text + "')", connAdd);
                 connAdd.Open();
                 sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
                 connAdd.Close();
 
-                connAdd.Open();
-                SqlCommand comandGetAuthID = new SqlCommand("select max(id) from authors", connAdd);
-                SqlDataReader dataReader = comandGetAuthID.ExecuteReader();
-               if(dataReader.Read()) checkAuthMax = dataReader.GetValue(0).ToString();
-                connAdd.Close();
-            }
-
-            connAdd.Open();
-            SqlCommand cmdp = new SqlCommand("select count(*) from publishers where publishers.publisher='" + txBxAddPublisher.Text + "'", connAdd);
-            int countp = (int)cmdp.ExecuteScalar();
-            connAdd.Close();
-
-            if (countp > 0)
-            {
-                connAdd.Open();
-                SqlCommand commandGetPubID = new SqlCommand("select id from publishers where publisher='" + txBxAddPublisher.Text + "'", connAdd);
-                SqlDataReader dataReader = commandGetPubID.ExecuteReader();
-
-                if (dataReader.Read())                                          //a kiadó ID-je
-                {
-                    checkPubID = dataReader.GetValue(0).ToString();
-                    
-                   // MessageBox.Show("Pub ID:\t", checkPubID);
-                }
-                connAdd.Close();
-            }
-
-            else                                                            // nincs ilyen kiadó, manuális ID növelés
-            {
                 sqlDataAdapterAdd.InsertCommand = new SqlCommand("insert into Publishers values ('" + txBxAddPublisher.Text + "')", connAdd);
                 connAdd.Open();
                 sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
                 connAdd.Close();
 
-                connAdd.Open();
-                SqlCommand comandGetPubID = new SqlCommand("select max(id) from publishers", connAdd);
-                SqlDataReader dataReader = comandGetPubID.ExecuteReader();
-                if (dataReader.Read()) checkPubMax = dataReader.GetValue(0).ToString();              
+                connAdd.Open();                                                     //van-e ilyen szerző?
+                SqlCommand cmda = new SqlCommand("select count(*) from authors where authors.author='" + txBxAddAuthor.Text + "'", connAdd);
+                int counta = (int)cmda.ExecuteScalar();
                 connAdd.Close();
-            }
 
-            if (chckBxEbook.Checked == true)
-            {
-                sqlDataAdapterAdd.InsertCommand = new SqlCommand("insert into Books (books.E_book)  values ('" + 1 + "') ", connAdd);
-                connAdd.Open();
-                sqlDataAdapterAdd.UpdateCommand.ExecuteNonQuery();
-                connAdd.Close();
-            }
+                if (counta > 0)
+                {
+                    connAdd.Open();
+                    SqlCommand commandGetAuthID = new SqlCommand("select id from authors where Author='" + txBxAddAuthor.Text + "'", connAdd);
+                    SqlDataReader dataReader = commandGetAuthID.ExecuteReader();
 
-            if (chckBxForeignLang.Checked == true)
-            {
-                sqlDataAdapterAdd.UpdateCommand = new SqlCommand("insert into Books  (books.Foreign_language)  values ('" + 1 + "')", connAdd);
-                connAdd.Open();
-                sqlDataAdapterAdd.UpdateCommand.ExecuteNonQuery();
-                connAdd.Close();
-            }
+                    if (dataReader.Read())                                          //a szerző ID-je
+                    {
+                        checkAuthID = dataReader.GetValue(0).ToString();
 
-            if (chckBxLend.Checked == true)
-            {
-                sqlDataAdapterAdd.UpdateCommand = new SqlCommand("insert into Books  (books.Borrowed)  values ('" + 1 + "')", connAdd);
-                connAdd.Open();
-                sqlDataAdapterAdd.UpdateCommand.ExecuteNonQuery();
-                connAdd.Close();
-            }
+                        //       MessageBox.Show("Auth ID:\t", checkAuthID);
+                    }
+                    connAdd.Close();
+                }
 
-            if (checkAuthID!=null && checkPubID!=null)
-            {
+                else                                                                // nincs ilyen szerző, manuális ID növelés
+                {
+                    sqlDataAdapterAdd.InsertCommand = new SqlCommand("insert into Authors values ('" + txBxAddAuthor.Text + "')", connAdd);
+                    connAdd.Open();
+                    sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
+                    connAdd.Close();
 
-                sqlDataAdapterAdd.InsertCommand = new SqlCommand("Insert into Books  (books.Title, books.ISBN, books.Release_date, books.author_id, books.publisher_id, books.genre_id)  values ('" + txBxAddTitle.Text + "','" + txBxAddISBN.Text + "','" + txBxAddPubDate.Text + "','" + Convert.ToInt64(checkAuthID) + "','"+ Convert.ToInt64(checkPubID) + "','" + comboBox1.SelectedIndex+"') ", connAdd);
-                connAdd.Open();
-                sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
-                connAdd.Close();
-            }
-            else if(checkAuthID != null && checkPubID == null)
-            {
-                sqlDataAdapterAdd.InsertCommand = new SqlCommand("Insert into Books  (books.Title, books.ISBN, books.Release_date, books.author_id, books.publisher_id, books.genre_id)  values ('" + txBxAddTitle.Text + "','" + txBxAddISBN.Text + "','" + txBxAddPubDate.Text + "','" + Convert.ToInt64(checkAuthID) + "','"+ Convert.ToInt64(checkPubMax + 1) + "','" + comboBox1.SelectedIndex + "') ", connAdd);
-                connAdd.Open();
-                sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
-                connAdd.Close();
-            }
-            else if(checkAuthID == null && checkPubID != null)
-            {
-                sqlDataAdapterAdd.InsertCommand = new SqlCommand("Insert into Books  (books.Title, books.ISBN, books.Release_date, books.author_id, books.publisher_id, books.genre_id)  values ('" + txBxAddTitle.Text + "','" + txBxAddISBN.Text + "','" + txBxAddPubDate.Text + "','" + Convert.ToInt64(checkAuthMax+1) + "','" + Convert.ToInt64(checkPubID)+ "','" + comboBox1.SelectedIndex + "') ", connAdd);
-                connAdd.Open();
-                sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
-                connAdd.Close();
-            }
-            else
-            {
-                sqlDataAdapterAdd.InsertCommand = new SqlCommand("Insert into Books  (books.Title, books.ISBN, books.Release_date, books.author_id, books.publisher_id, books.genre_id)  values ('" + txBxAddTitle.Text + "','" + txBxAddISBN.Text + "','" + txBxAddPubDate.Text + "','" + Convert.ToInt64(checkAuthMax+1) + "','" + Convert.ToInt64(checkAuthMax + 1) + "','" + comboBox1.SelectedIndex + "') ", connAdd);
-                connAdd.Open();
-                sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
-                connAdd.Close();
-            }
+                    connAdd.Open();
+                    SqlCommand comandGetAuthID = new SqlCommand("select max(id) from authors", connAdd);
+                    SqlDataReader dataReader = comandGetAuthID.ExecuteReader();
+                    if (dataReader.Read()) checkAuthMax = dataReader.GetValue(0).ToString();
+                    connAdd.Close();
+                }
 
-        }
+                connAdd.Open();
+                SqlCommand cmdp = new SqlCommand("select count(*) from publishers where publishers.publisher='" + txBxAddPublisher.Text + "'", connAdd);
+                int countp = (int)cmdp.ExecuteScalar();
+                connAdd.Close();
+
+                if (countp > 0)
+                {
+                    connAdd.Open();
+                    SqlCommand commandGetPubID = new SqlCommand("select id from publishers where publisher='" + txBxAddPublisher.Text + "'", connAdd);
+                    SqlDataReader dataReader = commandGetPubID.ExecuteReader();
+
+                    if (dataReader.Read())                                          //a kiadó ID-je
+                    {
+                        checkPubID = dataReader.GetValue(0).ToString();
+
+                        // MessageBox.Show("Pub ID:\t", checkPubID);
+                    }
+                    connAdd.Close();
+                }
+
+                else                                                            // nincs ilyen kiadó, manuális ID növelés
+                {
+                    sqlDataAdapterAdd.InsertCommand = new SqlCommand("insert into Publishers values ('" + txBxAddPublisher.Text + "')", connAdd);
+                    connAdd.Open();
+                    sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
+                    connAdd.Close();
+
+                    connAdd.Open();
+                    SqlCommand comandGetPubID = new SqlCommand("select max(id) from publishers", connAdd);
+                    SqlDataReader dataReader = comandGetPubID.ExecuteReader();
+                    if (dataReader.Read()) checkPubMax = dataReader.GetValue(0).ToString();
+                    connAdd.Close();
+                }
+                /*
+                            if (chckBxEbook.Checked == true)
+                            {
+                                sqlDataAdapterAdd.InsertCommand = new SqlCommand("insert into Books (books.E_book)  values ('" + 1 + "') ", connAdd);
+                                connAdd.Open();
+                                sqlDataAdapterAdd.UpdateCommand.ExecuteNonQuery();
+                                connAdd.Close();
+                            }
+
+                            if (chckBxForeignLang.Checked == true)
+                            {
+                                sqlDataAdapterAdd.UpdateCommand = new SqlCommand("insert into Books  (books.Foreign_language)  values ('" + 1 + "')", connAdd);
+                                connAdd.Open();
+                                sqlDataAdapterAdd.UpdateCommand.ExecuteNonQuery();
+                                connAdd.Close();
+                            }
+
+                            if (chckBxLend.Checked == true)
+                            {
+                                sqlDataAdapterAdd.UpdateCommand = new SqlCommand("insert into Books  (books.Borrowed)  values ('" + 1 + "')", connAdd);
+                                connAdd.Open();
+                                sqlDataAdapterAdd.UpdateCommand.ExecuteNonQuery();
+                                connAdd.Close();
+                            }
+                            */
+                if (checkAuthID != null && checkPubID != null)
+                {
+
+                    sqlDataAdapterAdd.InsertCommand = new SqlCommand("Insert into Books  (books.Title, books.ISBN, books.Release_date, books.author_id, books.publisher_id, books.genre_id, books.foreign_language, books.e_book, books.borrowed) " +
+                        " values ('" + txBxAddTitle.Text + "','" + txBxAddISBN.Text + "','" + txBxAddPubDate.Text + "','" + Convert.ToInt64(checkAuthID) + "','" + Convert.ToInt64(checkPubID) + "','" + (comboBox1.SelectedIndex + 1) + "','" + foreignChk + "','" + ebookChk + "','" + lendChk + "') ", connAdd);
+                    connAdd.Open();
+                    sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
+                    connAdd.Close();
+                }
+                else if (checkAuthID != null && checkPubID == null)
+                {
+                    sqlDataAdapterAdd.InsertCommand = new SqlCommand("Insert into Books  (books.Title, books.ISBN, books.Release_date, books.author_id, books.publisher_id, books.genre_id, books.foreign_language, books.e_book, books.borrowed)  " +
+                        "values ('" + txBxAddTitle.Text + "','" + txBxAddISBN.Text + "','" + txBxAddPubDate.Text + "','" + Convert.ToInt64(checkAuthID) + "','" + Convert.ToInt64(checkPubMax + 1) + "','" + (comboBox1.SelectedIndex+1) + "','" + foreignChk + "','" + ebookChk + "','" + lendChk + "') ", connAdd);
+                    connAdd.Open();
+                    sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
+                    connAdd.Close();
+                }
+                else if (checkAuthID == null && checkPubID != null)
+                {
+                    sqlDataAdapterAdd.InsertCommand = new SqlCommand("Insert into Books  (books.Title, books.ISBN, books.Release_date, books.author_id, books.publisher_id, books.genre_id, books.foreign_language, books.e_book, books.borrowed)  " +
+                        "values ('" + txBxAddTitle.Text + "','" + txBxAddISBN.Text + "','" + txBxAddPubDate.Text + "','" + Convert.ToInt64(checkAuthMax + 1) + "','" + Convert.ToInt64(checkPubID) + "','" + (comboBox1.SelectedIndex + 1) + "','" + foreignChk + "','" + ebookChk + "','" + lendChk + "') ", connAdd);
+                    connAdd.Open();
+                    sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
+                    connAdd.Close();
+                }
+                else
+                {
+                    sqlDataAdapterAdd.InsertCommand = new SqlCommand("Insert into Books  (books.Title, books.ISBN, books.Release_date, books.author_id, books.publisher_id, books.genre_id, books.foreign_language, books.e_book, books.borrowed) " +
+                        " values ('" + txBxAddTitle.Text + "','" + txBxAddISBN.Text + "','" + txBxAddPubDate.Text + "','" + Convert.ToInt64(checkAuthMax + 1) + "','" + Convert.ToInt64(checkAuthMax + 1) + "','" + (genId) + "','" + foreignChk + "','" + ebookChk + "','" + lendChk + "') ", connAdd);
+                    connAdd.Open();
+                    sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
+                    connAdd.Close();
+                }
+
+                MessageBox.Show(""+genId);
+            }
+            catch(Exception ex) { MessageBox.Show("Probléma az adatok rögzítésében!"+ ex); }
+
+            }
 
         private void btnAddFromWindow_Click(object sender, EventArgs e)
         {
@@ -383,10 +341,25 @@ namespace LinqToSQLMultiTabGyak
                 else*/
                 {
                     //  MessageBox.Show("Jó a dátum!");
-                    addDataToDB();
-                  //  DatasToDB();
-                    CleanAddedDatas();
-                    MessageBox.Show("Beillesztés sikeres!");
+                    //   addDataToDB();
+                    if (txBxAddAuthor.Text == "" || txBxAddISBN.Text == "" || txBxAddPubDate.Text == "" || txBxAddPublisher.Text == "" || txBxAddTitle.Text == "")
+                    {
+                        MessageBox.Show("Ellenőrizze az adatokat!");
+                    }
+                    else
+                    {
+                        if (Int16.Parse(txBxAddPubDate.Text) < 1000 || Int16.Parse(txBxAddPubDate.Text) > DateTime.Now.Year)
+                        {
+                            MessageBox.Show("Elenőrize a dátumot!");
+                        }
+                        else
+                        {
+                            DatasToDB();
+                          
+                            CleanAddedDatas();
+                            MessageBox.Show("Beillesztés sikeres!");
+                        }
+                    } 
                 }
             }
             catch(Exception ex) { MessageBox.Show("Hiba az adatok rögzítésében\n"+ex); }

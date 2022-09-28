@@ -53,21 +53,21 @@
             this.txBxUpdISBN.Location = new System.Drawing.Point(82, 118);
             this.txBxUpdISBN.Name = "txBxUpdISBN";
             this.txBxUpdISBN.Size = new System.Drawing.Size(360, 20);
-            this.txBxUpdISBN.TabIndex = 33;
+            this.txBxUpdISBN.TabIndex = 6;
             // 
             // txBxUpdPbulisher
             // 
             this.txBxUpdPbulisher.Location = new System.Drawing.Point(82, 64);
             this.txBxUpdPbulisher.Name = "txBxUpdPbulisher";
             this.txBxUpdPbulisher.Size = new System.Drawing.Size(360, 20);
-            this.txBxUpdPbulisher.TabIndex = 31;
+            this.txBxUpdPbulisher.TabIndex = 3;
             // 
             // txBxUpdAuthor
             // 
             this.txBxUpdAuthor.Location = new System.Drawing.Point(82, 38);
             this.txBxUpdAuthor.Name = "txBxUpdAuthor";
             this.txBxUpdAuthor.Size = new System.Drawing.Size(360, 20);
-            this.txBxUpdAuthor.TabIndex = 30;
+            this.txBxUpdAuthor.TabIndex = 2;
             // 
             // txBxUpdTitle
             // 
@@ -79,9 +79,10 @@
             // txBxUpdPubDate
             // 
             this.txBxUpdPubDate.Location = new System.Drawing.Point(82, 92);
+            this.txBxUpdPubDate.MaxLength = 4;
             this.txBxUpdPubDate.Name = "txBxUpdPubDate";
             this.txBxUpdPubDate.Size = new System.Drawing.Size(100, 20);
-            this.txBxUpdPubDate.TabIndex = 28;
+            this.txBxUpdPubDate.TabIndex = 4;
             // 
             // btnCancelUpdaeWindow
             // 
@@ -91,7 +92,7 @@
             this.btnCancelUpdaeWindow.Location = new System.Drawing.Point(300, 234);
             this.btnCancelUpdaeWindow.Name = "btnCancelUpdaeWindow";
             this.btnCancelUpdaeWindow.Size = new System.Drawing.Size(110, 35);
-            this.btnCancelUpdaeWindow.TabIndex = 27;
+            this.btnCancelUpdaeWindow.TabIndex = 11;
             this.btnCancelUpdaeWindow.Text = "Mégse";
             this.btnCancelUpdaeWindow.UseVisualStyleBackColor = true;
             this.btnCancelUpdaeWindow.Click += new System.EventHandler(this.btnCancelUpdaeWindow_Click);
@@ -103,7 +104,7 @@
             this.btnUpdateFromWindow.Location = new System.Drawing.Point(60, 234);
             this.btnUpdateFromWindow.Name = "btnUpdateFromWindow";
             this.btnUpdateFromWindow.Size = new System.Drawing.Size(220, 35);
-            this.btnUpdateFromWindow.TabIndex = 26;
+            this.btnUpdateFromWindow.TabIndex = 10;
             this.btnUpdateFromWindow.Text = "Módosítás";
             this.btnUpdateFromWindow.UseVisualStyleBackColor = true;
             this.btnUpdateFromWindow.Click += new System.EventHandler(this.btnUpdateFromWindow_Click);
@@ -114,7 +115,7 @@
             this.chckBxUpdLend.Location = new System.Drawing.Point(247, 144);
             this.chckBxUpdLend.Name = "chckBxUpdLend";
             this.chckBxUpdLend.Size = new System.Drawing.Size(91, 17);
-            this.chckBxUpdLend.TabIndex = 25;
+            this.chckBxUpdLend.TabIndex = 9;
             this.chckBxUpdLend.Text = "Kölcsön adva";
             this.chckBxUpdLend.UseVisualStyleBackColor = true;
             // 
@@ -124,7 +125,7 @@
             this.chckBxUpdEbook.Location = new System.Drawing.Point(181, 144);
             this.chckBxUpdEbook.Name = "chckBxUpdEbook";
             this.chckBxUpdEbook.Size = new System.Drawing.Size(60, 17);
-            this.chckBxUpdEbook.TabIndex = 24;
+            this.chckBxUpdEbook.TabIndex = 8;
             this.chckBxUpdEbook.Text = "E-book";
             this.chckBxUpdEbook.UseVisualStyleBackColor = true;
             // 
@@ -134,7 +135,7 @@
             this.chckBxUpdForeignLang.Location = new System.Drawing.Point(82, 144);
             this.chckBxUpdForeignLang.Name = "chckBxUpdForeignLang";
             this.chckBxUpdForeignLang.Size = new System.Drawing.Size(93, 17);
-            this.chckBxUpdForeignLang.TabIndex = 23;
+            this.chckBxUpdForeignLang.TabIndex = 7;
             this.chckBxUpdForeignLang.Text = "Idegen nyelvű";
             this.chckBxUpdForeignLang.UseVisualStyleBackColor = true;
             // 
@@ -197,7 +198,7 @@
             this.comboBox1.Location = new System.Drawing.Point(229, 92);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(213, 21);
-            this.comboBox1.TabIndex = 34;
+            this.comboBox1.TabIndex = 5;
             // 
             // txBxUpdGenre
             // 
@@ -231,6 +232,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.MaximumSize = new System.Drawing.Size(470, 320);
+            this.MinimumSize = new System.Drawing.Size(470, 320);
             this.Name = "UpdateBookFrm";
             this.Text = "Könyv adatainak módosítása";
             this.Load += new System.EventHandler(this.UpdateBookFrm_Load);

@@ -24,8 +24,7 @@ namespace LinqToSQLMultiTabGyak
         DataSet dataSet=new DataSet();
         int authCount =0, pubCount = 0;
 
-
-         SqlConnection sqlConnectionUpdate = new SqlConnection("Data Source=VLZ_ASUS;Initial Catalog=bookwormdb;Integrated Security=True");
+        SqlConnection sqlConnectionUpdate = new SqlConnection("Data Source=VLZASUS;Initial Catalog=Bookworm;Integrated Security=True");
         SqlDataAdapter sqlDataAdapterUpdate = new SqlDataAdapter();
 
         public UpdateBookFrm()
@@ -46,17 +45,12 @@ namespace LinqToSQLMultiTabGyak
             chckBxUpdForeignLang.Checked = GetForeign;
             if (GetBorrowed == true) { chckBxUpdLend.Checked = true; } else { chckBxUpdLend.Checked = false; }
 
-
-
          //   using (SqlConnection conn = new SqlConnection(@"Data Source=VLZ_ASUS;Initial Catalog=BookwormDB;Integrated Security=True"))     //combox feltötés
             {
                 try
                 {
-
+                    // conn.Open();
                     sqlConnectionUpdate.Open();
-
-
-                   // conn.Open();
                     SqlCommand comd = sqlConnectionUpdate.CreateCommand();
                     comd.CommandType = CommandType.Text;
                     comd.CommandText = "select Genre from dbo.Genres";
@@ -88,33 +82,9 @@ namespace LinqToSQLMultiTabGyak
 
        public bool changeTitle = false, changeAuthor=false;
 
-        #region update figyelős metódus
-
-        /*        private void TxBxStuffed()
-                {
-                 //   txBxUpdTitle.TextChanged += new System.EventHandler(this.txBxUpdTitle_TextChanged);
-                    txBxUpdAuthor.TextChanged += new System.EventHandler(this.txBxUpdAuthor_TextChanged);
-                //    txBxUpdPbulisher.TextChanged += new System.EventHandler(this.txBxTextChanged);
-               //     txBxUpdPubDate.TextChanged += new System.EventHandler(this.txBxTextChanged);
-               //     txBxUpdGenre.TextChanged += new System.EventHandler(this.txBxTextChanged);
-               //     txBxUpdISBN.TextChanged += new System.EventHandler(this.txBxTextChanged);
-
-                    }
-
-                //private void txBxTextChanged(object sender, EventArgs e) { txBxWasChanged = true; }
-
-
-
-
-               // private void txBxUpdTitle_TextChanged(object sender, EventArgs e)   { changeTitle = true;}
-                private void txBxUpdAuthor_TextChanged(object sender, EventArgs e)  { changeAuthor = true; }
-
-        */
-        #endregion
-
         void UpdateDatabase()
         {
-       //     TxBxStuffed();
+
             try
             {
                 #region //checkbox-ok update-je
@@ -280,7 +250,7 @@ namespace LinqToSQLMultiTabGyak
 
                     else
                     {
-                        sqlDataAdapterUpdate.InsertCommand = new SqlCommand("insert into dbo.Publishers (Publisher) values ('" + txBxUpdPbulisher.Text + "') select books.pubblisher_id, publishers.id from Publishers inner join[dbo].Books on Books.Publisher_id = Publishers.ID where  Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                        sqlDataAdapterUpdate.InsertCommand = new SqlCommand("insert into dbo.Publishers (Publisher) values ('" + txBxUpdPbulisher.Text + "') select books.publisher_id, publishers.id from Publishers inner join[dbo].Books on Books.Publisher_id = Publishers.ID where  Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
                         sqlDataAdapterUpdate.InsertCommand.ExecuteNonQuery();
 
                         SqlCommand scAuth = new SqlCommand("select id from publishers where publisher='" + txBxUpdPbulisher.Text + "'", sqlConnectionUpdate);
@@ -289,15 +259,9 @@ namespace LinqToSQLMultiTabGyak
                         sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set Books.Author_id  = '" + checkAuth + "'  where  Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
 
                         sqlConnectionUpdate.Open();
-                        sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
-                        sqlConnectionUpdate.Close();
-                    
+                        sqlDataAdapterUpdate.InsertCommand.ExecuteNonQuery();
+                        sqlConnectionUpdate.Close();                   
                     }
-
-                    /*  sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Publishers set Publishers.Publisher  = '" + txBxUpdPbulisher.Text + "' from Publishers inner join[dbo].Books on Books.Publisher_id = Publishers.ID where  Books.ISBN='" + GetISBN + "' and  Publishers.Publisher='" + GetPublishser + "'", sqlConnectionUpdate);
-                      sqlConnectionUpdate.Open();
-                      sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
-                      sqlConnectionUpdate.Close();*/
                 }       //kiadók
 
                 if (txBxUpdPubDate.Text != GetPubDAte)
@@ -305,16 +269,12 @@ namespace LinqToSQLMultiTabGyak
                         sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Release_Date  = '" + txBxUpdPubDate.Text + "' where books.Release_date='" + GetPubDAte + "' and Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
                         sqlConnectionUpdate.Open();
                         sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
-                        sqlConnectionUpdate.Close();
-                    
+                        sqlConnectionUpdate.Close();                   
                 }             //kiadás éve
 
                 if (comboBox1.SelectedItem.ToString() != GetGenre)                //if (txBxUpdGenre.Text != GetGenre)
                 {
-                    //   sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Genres set Genres.Genre  = '" + comboBox1.SelectedItem + "' from Genres inner join[dbo].Books on Books.Genre_id = Genres.ID where  Books.ISBN='" + GetISBN + "' and  Genres.Genre='" + GetGenre + "'", sqlConnectionUpdate);
-
                     sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set Books.Genre_id  = '" + (comboBox1.SelectedIndex+1) + "' from Genres inner join[dbo].Books on Books.Genre_id = Genres.ID where  Books.ISBN='" + GetISBN + "' and  Genres.Genre='" + GetGenre + "'", sqlConnectionUpdate);
-
 
                     sqlConnectionUpdate.Open();
                     sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
@@ -340,7 +300,6 @@ namespace LinqToSQLMultiTabGyak
               }
         }
 
-
         private void btnUpdateFromWindow_Click(object sender, EventArgs e)
         {
             try
@@ -357,9 +316,7 @@ namespace LinqToSQLMultiTabGyak
                 }
             }
 
-            catch(Exception ex) { MessageBox.Show("Hiba történt a módosítás közben! \n" + ex); }
-
-            
+            catch(Exception ex) { MessageBox.Show("Hiba történt a módosítás közben! \n" + ex); }            
         }
     }
 }

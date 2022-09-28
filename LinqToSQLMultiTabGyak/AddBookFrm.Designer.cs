@@ -108,7 +108,7 @@
             this.chckBxForeignLang.Location = new System.Drawing.Point(82, 144);
             this.chckBxForeignLang.Name = "chckBxForeignLang";
             this.chckBxForeignLang.Size = new System.Drawing.Size(93, 17);
-            this.chckBxForeignLang.TabIndex = 6;
+            this.chckBxForeignLang.TabIndex = 7;
             this.chckBxForeignLang.Text = "Idegen nyelvű";
             this.chckBxForeignLang.UseVisualStyleBackColor = true;
             // 
@@ -118,7 +118,7 @@
             this.chckBxEbook.Location = new System.Drawing.Point(180, 144);
             this.chckBxEbook.Name = "chckBxEbook";
             this.chckBxEbook.Size = new System.Drawing.Size(60, 17);
-            this.chckBxEbook.TabIndex = 7;
+            this.chckBxEbook.TabIndex = 8;
             this.chckBxEbook.Text = "E-book";
             this.chckBxEbook.UseVisualStyleBackColor = true;
             // 
@@ -128,7 +128,7 @@
             this.chckBxLend.Location = new System.Drawing.Point(246, 144);
             this.chckBxLend.Name = "chckBxLend";
             this.chckBxLend.Size = new System.Drawing.Size(91, 17);
-            this.chckBxLend.TabIndex = 8;
+            this.chckBxLend.TabIndex = 9;
             this.chckBxLend.Text = "Kölcsön adva";
             this.chckBxLend.UseVisualStyleBackColor = true;
             // 
@@ -139,7 +139,7 @@
             this.btnAddFromWindow.Location = new System.Drawing.Point(60, 234);
             this.btnAddFromWindow.Name = "btnAddFromWindow";
             this.btnAddFromWindow.Size = new System.Drawing.Size(220, 35);
-            this.btnAddFromWindow.TabIndex = 9;
+            this.btnAddFromWindow.TabIndex = 10;
             this.btnAddFromWindow.Text = "Hozzáadás";
             this.btnAddFromWindow.UseVisualStyleBackColor = true;
             this.btnAddFromWindow.Click += new System.EventHandler(this.btnAddFromWindow_Click);
@@ -152,7 +152,7 @@
             this.btnCancelWindow.Location = new System.Drawing.Point(300, 234);
             this.btnCancelWindow.Name = "btnCancelWindow";
             this.btnCancelWindow.Size = new System.Drawing.Size(110, 35);
-            this.btnCancelWindow.TabIndex = 10;
+            this.btnCancelWindow.TabIndex = 1;
             this.btnCancelWindow.Text = "Mégse";
             this.btnCancelWindow.UseVisualStyleBackColor = true;
             this.btnCancelWindow.Click += new System.EventHandler(this.btnCancelWindow_Click);
@@ -160,30 +160,31 @@
             // txBxAddPubDate
             // 
             this.txBxAddPubDate.Location = new System.Drawing.Point(82, 92);
+            this.txBxAddPubDate.MaxLength = 4;
             this.txBxAddPubDate.Name = "txBxAddPubDate";
             this.txBxAddPubDate.Size = new System.Drawing.Size(100, 20);
-            this.txBxAddPubDate.TabIndex = 11;
+            this.txBxAddPubDate.TabIndex = 4;
             // 
             // txBxAddTitle
             // 
             this.txBxAddTitle.Location = new System.Drawing.Point(82, 12);
             this.txBxAddTitle.Name = "txBxAddTitle";
             this.txBxAddTitle.Size = new System.Drawing.Size(360, 20);
-            this.txBxAddTitle.TabIndex = 12;
+            this.txBxAddTitle.TabIndex = 1;
             // 
             // txBxAddAuthor
             // 
             this.txBxAddAuthor.Location = new System.Drawing.Point(82, 38);
             this.txBxAddAuthor.Name = "txBxAddAuthor";
             this.txBxAddAuthor.Size = new System.Drawing.Size(360, 20);
-            this.txBxAddAuthor.TabIndex = 13;
+            this.txBxAddAuthor.TabIndex = 2;
             // 
             // txBxAddPublisher
             // 
             this.txBxAddPublisher.Location = new System.Drawing.Point(82, 64);
             this.txBxAddPublisher.Name = "txBxAddPublisher";
             this.txBxAddPublisher.Size = new System.Drawing.Size(360, 20);
-            this.txBxAddPublisher.TabIndex = 14;
+            this.txBxAddPublisher.TabIndex = 3;
             // 
             // txBxAddGenre
             // 
@@ -198,7 +199,7 @@
             this.txBxAddISBN.Location = new System.Drawing.Point(82, 118);
             this.txBxAddISBN.Name = "txBxAddISBN";
             this.txBxAddISBN.Size = new System.Drawing.Size(360, 20);
-            this.txBxAddISBN.TabIndex = 16;
+            this.txBxAddISBN.TabIndex = 6;
             // 
             // comboBox1
             // 
@@ -206,8 +207,7 @@
             this.comboBox1.Location = new System.Drawing.Point(229, 92);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(213, 21);
-            this.comboBox1.Sorted = true;
-            this.comboBox1.TabIndex = 17;
+            this.comboBox1.TabIndex = 5;
             this.comboBox1.Text = "Kérem válasszon!";
             // 
             // AddBookFrm
@@ -235,6 +235,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.MaximumSize = new System.Drawing.Size(470, 320);
+            this.MinimumSize = new System.Drawing.Size(470, 320);
             this.Name = "AddBookFrm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
