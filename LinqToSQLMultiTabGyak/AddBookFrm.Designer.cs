@@ -152,7 +152,7 @@
             this.btnCancelWindow.Location = new System.Drawing.Point(300, 234);
             this.btnCancelWindow.Name = "btnCancelWindow";
             this.btnCancelWindow.Size = new System.Drawing.Size(110, 35);
-            this.btnCancelWindow.TabIndex = 1;
+            this.btnCancelWindow.TabIndex = 11;
             this.btnCancelWindow.Text = "Mégse";
             this.btnCancelWindow.UseVisualStyleBackColor = true;
             this.btnCancelWindow.Click += new System.EventHandler(this.btnCancelWindow_Click);

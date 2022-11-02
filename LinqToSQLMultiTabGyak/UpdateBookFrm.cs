@@ -20,6 +20,7 @@ namespace LinqToSQLMultiTabGyak
         public bool GetEbook { get; set; }
         public bool GetForeign { get; set; }
         public bool GetBorrowed { get; set; }
+        public string GetIktSzam { get; set; }
 
         DataSet dataSet=new DataSet();
         int authCount =0, pubCount = 0;
@@ -90,14 +91,14 @@ namespace LinqToSQLMultiTabGyak
                 #region //checkbox-ok update-je
                 if (chckBxUpdEbook.Checked == true)
                 {
-                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.E_book  = '" + 1 + "' where books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.E_book  = '" + 1 + "' where books.ID='" + GetIktSzam + "'", sqlConnectionUpdate);
                     sqlConnectionUpdate.Open();
                     sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
                     sqlConnectionUpdate.Close();
                 }
                 else
                 {
-                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.E_book  = '" + 0 + "' where books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.E_book  = '" + 0 + "' where books.ID='" + GetIktSzam + "'", sqlConnectionUpdate);
                     sqlConnectionUpdate.Open();
                     sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
                     sqlConnectionUpdate.Close();
@@ -105,14 +106,14 @@ namespace LinqToSQLMultiTabGyak
 
                 if (chckBxUpdForeignLang.Checked == true)
                 {
-                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Foreign_language  = '" + 1 + "' where books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Foreign_language  = '" + 1 + "'where books.ID='" + GetIktSzam + "'", sqlConnectionUpdate);
                     sqlConnectionUpdate.Open();
                     sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
                     sqlConnectionUpdate.Close();
                 }
                 else
                 {
-                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Foreign_language  = '" + 0 + "' where books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Foreign_language  = '" + 0 + "'where books.ID='" + GetIktSzam + "'", sqlConnectionUpdate);
                     sqlConnectionUpdate.Open();
                     sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
                     sqlConnectionUpdate.Close();
@@ -120,14 +121,14 @@ namespace LinqToSQLMultiTabGyak
 
                 if (chckBxUpdLend.Checked == true)
                 {
-                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Borrowed  = '" + 1 + "' where books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Borrowed  = '" + 1 + "' where books.ID='" + GetIktSzam + "'", sqlConnectionUpdate);
                     sqlConnectionUpdate.Open();
                     sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
                     sqlConnectionUpdate.Close();
                 }
                 else
                 {
-                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Borrowed  = '" + 0 + "' where books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Borrowed  = '" + 0 + "'where books.ID='" + GetIktSzam + "'", sqlConnectionUpdate);
                     sqlConnectionUpdate.Open();
                     sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
                     sqlConnectionUpdate.Close();
@@ -138,7 +139,7 @@ namespace LinqToSQLMultiTabGyak
                 #region //textbox-ok update-je
                 if (txBxUpdTitle.Text != GetTitle)                       //címek
                 {
-                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Title  = '" + txBxUpdTitle.Text + "' where books.Title='" + GetTitle + "' and Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Title  = '" + txBxUpdTitle.Text + "' where books.Title='" + GetTitle + "' and books.ID='" + GetIktSzam + "'", sqlConnectionUpdate);
                     sqlConnectionUpdate.Open();
                     sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
                     sqlConnectionUpdate.Close();
@@ -165,7 +166,7 @@ namespace LinqToSQLMultiTabGyak
                             sqlConnectionUpdate.Close();
                         }
 
-                        sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set Books.Author_id  = '"+ checkID + "'  where  Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                        sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set Books.Author_id  = '"+ checkID + "'  where   books.ID='" + GetIktSzam + "'", sqlConnectionUpdate);
                         sqlConnectionUpdate.Open();
                         sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
                         sqlConnectionUpdate.Close();
@@ -174,13 +175,13 @@ namespace LinqToSQLMultiTabGyak
                     else
                     {
                         MessageBox.Show("NEM VÓT MÉG!");
-                        sqlDataAdapterUpdate.InsertCommand = new SqlCommand("insert into dbo.Authors (Author) values ('"+txBxUpdAuthor.Text+"') select books.author_id, authors.id from Authors inner join[dbo].Books on Books.Author_id = Authors.ID where  Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                        sqlDataAdapterUpdate.InsertCommand = new SqlCommand("insert into dbo.Authors (Author) values ('"+txBxUpdAuthor.Text+ "') select books.author_id, authors.id from Authors inner join[dbo].Books on Books.Author_id = Authors.ID where   books.ID='" + GetIktSzam + "'", sqlConnectionUpdate);
                         sqlDataAdapterUpdate.InsertCommand.ExecuteNonQuery();
 
                         SqlCommand scAuth = new SqlCommand("select id from authors where author='" + txBxUpdAuthor.Text + "'", sqlConnectionUpdate);
                         SqlDataReader dataReader = scAuth.ExecuteReader();
                         if (dataReader.Read()) { checkID = dataReader.GetValue(0).ToString(); sqlConnectionUpdate.Close(); }
-                        sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set Books.Author_id  = '" + checkID + "'  where  Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                        sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set Books.Author_id  = '" + checkID + "'  where   books.ID='" + GetIktSzam + "'", sqlConnectionUpdate);
 
                         sqlConnectionUpdate.Open();
                         sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
@@ -250,13 +251,13 @@ namespace LinqToSQLMultiTabGyak
 
                     else
                     {
-                        sqlDataAdapterUpdate.InsertCommand = new SqlCommand("insert into dbo.Publishers (Publisher) values ('" + txBxUpdPbulisher.Text + "') select books.publisher_id, publishers.id from Publishers inner join[dbo].Books on Books.Publisher_id = Publishers.ID where  Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                        sqlDataAdapterUpdate.InsertCommand = new SqlCommand("insert into dbo.Publishers (Publisher) values ('" + txBxUpdPbulisher.Text + "') select books.publisher_id, publishers.id from Publishers inner join[dbo].Books on Books.Publisher_id = Publishers.ID where books.ID='" + GetIktSzam + "'", sqlConnectionUpdate);
                         sqlDataAdapterUpdate.InsertCommand.ExecuteNonQuery();
 
                         SqlCommand scAuth = new SqlCommand("select id from publishers where publisher='" + txBxUpdPbulisher.Text + "'", sqlConnectionUpdate);
                         SqlDataReader dataReader = scAuth.ExecuteReader();
                         if (dataReader.Read()) { checkAuth = dataReader.GetValue(0).ToString(); sqlConnectionUpdate.Close(); }
-                        sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set Books.Author_id  = '" + checkAuth + "'  where  Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                        sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set Books.Author_id  = '" + checkAuth + "'  where   books.ID='" + GetIktSzam + "'", sqlConnectionUpdate);
 
                         sqlConnectionUpdate.Open();
                         sqlDataAdapterUpdate.InsertCommand.ExecuteNonQuery();
@@ -266,7 +267,7 @@ namespace LinqToSQLMultiTabGyak
 
                 if (txBxUpdPubDate.Text != GetPubDAte)
                 {             
-                        sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Release_Date  = '" + txBxUpdPubDate.Text + "' where books.Release_date='" + GetPubDAte + "' and Books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                        sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.Release_Date  = '" + txBxUpdPubDate.Text + "' where books.Release_date='" + GetPubDAte + "' and  books.ID='" + GetIktSzam + "'", sqlConnectionUpdate);
                         sqlConnectionUpdate.Open();
                         sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
                         sqlConnectionUpdate.Close();                   
@@ -274,7 +275,7 @@ namespace LinqToSQLMultiTabGyak
 
                 if (comboBox1.SelectedItem.ToString() != GetGenre)                //if (txBxUpdGenre.Text != GetGenre)
                 {
-                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set Books.Genre_id  = '" + (comboBox1.SelectedIndex+1) + "' from Genres inner join[dbo].Books on Books.Genre_id = Genres.ID where  Books.ISBN='" + GetISBN + "' and  Genres.Genre='" + GetGenre + "'", sqlConnectionUpdate);
+                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set Books.Genre_id  = '" + (comboBox1.SelectedIndex+1) + "' from Genres inner join[dbo].Books on Books.Genre_id = Genres.ID where   books.ID='" + GetIktSzam + "' and  Genres.Genre='" + GetGenre + "'", sqlConnectionUpdate);
 
                     sqlConnectionUpdate.Open();
                     sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
@@ -283,7 +284,7 @@ namespace LinqToSQLMultiTabGyak
 
                 if (txBxUpdISBN.Text != GetISBN)
                 {
-                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.ISBN  = '" + txBxUpdISBN.Text + "' where books.ISBN='" + GetISBN + "'", sqlConnectionUpdate);
+                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set books.ISBN  = '" + txBxUpdISBN.Text + "' where  books.ID='" + GetIktSzam + "'", sqlConnectionUpdate);
                     sqlConnectionUpdate.Open();
                     sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
                     sqlConnectionUpdate.Close();

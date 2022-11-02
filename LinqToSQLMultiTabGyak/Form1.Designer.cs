@@ -36,7 +36,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.comBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox = new System.Windows.Forms.GroupBox();
             this.chckBxLend = new System.Windows.Forms.CheckBox();
             this.chckBxForeignLang = new System.Windows.Forms.CheckBox();
             this.chckBxEbook = new System.Windows.Forms.CheckBox();
@@ -56,7 +56,7 @@
             this.bookwormDataSet = new LinqToSQLMultiTabGyak.BookwormDataSet();
             this.bwDataSet = new LinqToSQLMultiTabGyak.BookwormDataSet();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.groupBox2.SuspendLayout();
+            this.groupBox.SuspendLayout();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataTable1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
@@ -142,24 +142,24 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Keresett tulajdonság:";
             // 
-            // groupBox2
+            // groupBox
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.chckBxLend);
-            this.groupBox2.Controls.Add(this.chckBxForeignLang);
-            this.groupBox2.Controls.Add(this.chckBxEbook);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.btnSearch);
-            this.groupBox2.Controls.Add(this.txBxSearch);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.comBox);
-            this.groupBox2.Location = new System.Drawing.Point(12, 510);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1040, 60);
-            this.groupBox2.TabIndex = 9;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Keresés";
+            this.groupBox.Controls.Add(this.chckBxLend);
+            this.groupBox.Controls.Add(this.chckBxForeignLang);
+            this.groupBox.Controls.Add(this.chckBxEbook);
+            this.groupBox.Controls.Add(this.label1);
+            this.groupBox.Controls.Add(this.btnSearch);
+            this.groupBox.Controls.Add(this.txBxSearch);
+            this.groupBox.Controls.Add(this.label2);
+            this.groupBox.Controls.Add(this.comBox);
+            this.groupBox.Location = new System.Drawing.Point(12, 510);
+            this.groupBox.Name = "groupBox";
+            this.groupBox.Size = new System.Drawing.Size(1040, 60);
+            this.groupBox.TabIndex = 9;
+            this.groupBox.TabStop = false;
+            this.groupBox.Text = "Keresés";
             // 
             // chckBxLend
             // 
@@ -326,7 +326,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1064, 585);
             this.Controls.Add(this.btnInsUpdate);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.dataGridView1);
@@ -339,8 +339,8 @@
             this.Text = "Könyvmoly";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.groupBox.ResumeLayout(false);
+            this.groupBox.PerformLayout();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataTable1)).EndInit();
@@ -364,7 +364,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnInsert;
         private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox;
         private System.Windows.Forms.CheckBox chckBxLend;
         private System.Windows.Forms.CheckBox chckBxForeignLang;
         private System.Windows.Forms.CheckBox chckBxEbook;

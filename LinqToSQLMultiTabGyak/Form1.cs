@@ -32,7 +32,9 @@ namespace LinqToSQLMultiTabGyak
             tableMergingStuff();
         }
 
-        private void tableMergingStuff()
+        public void refreshMain() {  this.Refresh(); }
+
+       private void tableMergingStuff()
         {
             try
             {
@@ -50,10 +52,11 @@ namespace LinqToSQLMultiTabGyak
                 #endregion
 
                 //adatok beolvasása v2
-                sqlDataAdapter.SelectCommand = new SqlCommand(" select Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj, Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv, Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID", sqlConnection);
+                sqlDataAdapter.SelectCommand = new SqlCommand(" select Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj, Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv, Books.E_book, Books.Borrowed as Kölcsönadott, books.id as Ikt_szám from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID", sqlConnection);
                 DataSet dataSet = new DataSet();
                 sqlDataAdapter.Fill(dataSet);
                 dataGridView1.DataSource = dataSet.Tables[0];
+                //dataGridView1.Columns[9].Visible = false;
             }
 
             catch (Exception ex)
@@ -1187,7 +1190,8 @@ namespace LinqToSQLMultiTabGyak
             #endregion
 
             AddBookFrm addBook = new AddBookFrm();
-            addBook.Show();
+            addBook.ShowDialog();
+            tableMergingStuff();
         }
 
         #region //beírt adat törlése a szövegmezőből
@@ -1205,7 +1209,8 @@ namespace LinqToSQLMultiTabGyak
 
                 if (MessageBox.Show("Tényleg törlöd?", "Tuti?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    sqlDataAdapter.DeleteCommand = new SqlCommand("delete Books from  [dbo].[Books] where Books.ISBN = '" + dataGridView1.SelectedCells[5].Value.ToString() + "'", sqlConnection);
+                    sqlDataAdapter.DeleteCommand = new SqlCommand("delete Books from  [dbo].[Books] where Books.ID = '" +  dataGridView1.SelectedCells[9].Value.ToString() + "'", sqlConnection);
+                  
 
                     #region //cascade nélküli változat kezdete
                     /*sqlDataAdapter.DeleteCommand = new SqlCommand("delete Books from  [dbo].[Books] inner join[dbo].[Authors] on Books.Author_id = Authors.ID" +
@@ -1302,7 +1307,7 @@ namespace LinqToSQLMultiTabGyak
 
                         for (int i = 0; i < columnCount; i++)
                         {
-                            columnNames += dataGridView1.Columns[i].HeaderText.ToString() + "\t";
+                            columnNames += dataGridView1.Columns[i].HeaderText.ToString() + "\t;   ";
                         }
                         outputCSV[0] += columnNames;
 
@@ -1310,7 +1315,7 @@ namespace LinqToSQLMultiTabGyak
                         {
                             for (int j = 0; j < columnCount; j++)
                             {
-                                outputCSV[i] += dataGridView1.Rows[i - 1].Cells[j].Value.ToString() + "\t";
+                                outputCSV[i] += dataGridView1.Rows[i - 1].Cells[j].Value.ToString() + "\t;";
                             }
                         }
 
@@ -1326,7 +1331,7 @@ namespace LinqToSQLMultiTabGyak
 
             }
            // else MessageBox.Show("Hiba történt mentés közben!");
-        }
+        }   //export javítva
 
         private void txBxInsertISBN_TextChanged(object sender, EventArgs e)
         {
@@ -1364,7 +1369,7 @@ namespace LinqToSQLMultiTabGyak
               btnInsUpdate.Enabled = true;*/
         }
 
-        string uTitle = "", uAuthor = "", uGenre = "", uPublihser = "", uPubDate = "", uISBN = "";
+        string uTitle = "", uAuthor = "", uGenre = "", uPublihser = "", uPubDate = "", uISBN = "", uIkSzam="";
      
         private void menuStripHelp_Click(object sender, EventArgs e)
         {
@@ -1390,7 +1395,7 @@ namespace LinqToSQLMultiTabGyak
                         catch (IOException ex)
                         {
                             fileError = true;
-                            MessageBox.Show("It wasn't possible to write the data to the disk." + ex.Message);
+                            MessageBox.Show("Az adatok mentése sikertelen!." + ex.Message);
                         }
                     }
                     if (!fileError)
@@ -1456,6 +1461,7 @@ namespace LinqToSQLMultiTabGyak
                 uEbook = pickedRow.Cells[7].Value.ToString();
                 uForeign = pickedRow.Cells[6].Value.ToString();
                 uBorrowed = pickedRow.Cells[8].Value.ToString();
+                uIkSzam = pickedRow.Cells[9].Value.ToString();
             }
         }
 
@@ -1570,11 +1576,13 @@ namespace LinqToSQLMultiTabGyak
             updateBook.GetPubDAte = uPubDate;
             updateBook.GetISBN = uISBN;
             updateBook.GetEbook = chckBxEbook.Checked;
+            updateBook.GetIktSzam = uIkSzam;
              if (uForeign.CompareTo("true")==1) { updateBook.GetForeign = true; }
              if (uBorrowed.CompareTo( "true")==1) { updateBook.GetBorrowed =true; }
             if (uEbook.CompareTo("true") == 1) { updateBook.GetEbook = true; }
 
-            updateBook.Show();
+            updateBook.ShowDialog();
+            tableMergingStuff();
         }
     }
 }

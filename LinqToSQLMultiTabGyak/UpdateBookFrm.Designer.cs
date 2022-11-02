@@ -74,7 +74,7 @@
             this.txBxUpdTitle.Location = new System.Drawing.Point(82, 12);
             this.txBxUpdTitle.Name = "txBxUpdTitle";
             this.txBxUpdTitle.Size = new System.Drawing.Size(360, 20);
-            this.txBxUpdTitle.TabIndex = 29;
+            this.txBxUpdTitle.TabIndex = 1;
             // 
             // txBxUpdPubDate
             // 
@@ -235,6 +235,7 @@
             this.MaximumSize = new System.Drawing.Size(470, 320);
             this.MinimumSize = new System.Drawing.Size(470, 320);
             this.Name = "UpdateBookFrm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Könyv adatainak módosítása";
             this.Load += new System.EventHandler(this.UpdateBookFrm_Load);
             this.ResumeLayout(false);
