@@ -49,3 +49,4 @@ D:\Asztal bumm előtt\Visual Studio Source Repos\LinqToSQLMultiTabGyak\LinqToSQL
 D:\Asztal bumm előtt\Visual Studio Source Repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.csproj.CopyComplete
 D:\Asztal bumm előtt\Visual Studio Source Repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.exe
 D:\Asztal bumm előtt\Visual Studio Source Repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.pdb
+D:\Asztal bumm előtt\Visual Studio Source Repos\LinqToSQLMultiTabGyak\LinqToSQLMultiTabGyak\obj\Debug\LinqToSQLMultiTabGyak.csprojAssemblyReference.cache

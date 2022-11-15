@@ -38,7 +38,7 @@ namespace LinqToSQLMultiTabGyak
 
                     foreach (DataRow dr in dt.Rows)
                     {
-                        comboBox1.Items.Add(dr["Genre"].ToString());
+                        addComBox.Items.Add(dr["Genre"].ToString());
                         //   frPop.comSzoveg.Add(dr["Genre"].ToString());
                         //    frPop.cumiBox.Items.Add(dr["Genre"].ToString()); //muszik de rusnya
                     }
@@ -145,15 +145,15 @@ namespace LinqToSQLMultiTabGyak
                         bool lend, foreign, ebook;
                         lend = foreign = ebook = false;
 
-                        if (chckBxLend.Checked == true) { lend = true; } else lend = false;
-                        if (chckBxForeignLang.Checked == true) { foreign = true; } else foreign = false;
-                        if (chckBxEbook.Checked == true) { ebook = true; } else ebook = false;
+                        if (chckBxLendAdd.Checked == true) { lend = true; } else lend = false;
+                        if (chckBxForeignLangAdd.Checked == true) { foreign = true; } else foreign = false;
+                        if (chckBxEbookAdd.Checked == true) { ebook = true; } else ebook = false;
 
                         Book insBook = new Book
                         {
                             Author_id = insAuthor.ID,
                             Publisher_id = insPub.ID,
-                            Genre_id = comboBox1.SelectedIndex,//insGen.ID,                      //komplett szöveg helyett csak sorszám alapján
+                            Genre_id = addComBox.SelectedIndex,//insGen.ID,                      //komplett szöveg helyett csak sorszám alapján
                             Title = txBxAddTitle.Text,
                             ISBN = txBxAddISBN.Text,
                             Borrowed = lend,
@@ -183,10 +183,10 @@ namespace LinqToSQLMultiTabGyak
             try
             {
                 string checkAuthID = null, checkAuthMax = "", checkPubID = null, checkPubMax = "";
-                int lendChk = 0, foreignChk = 0, ebookChk = 0, genId=comboBox1.SelectedIndex;
-                if (chckBxEbook.Checked == true) { ebookChk = 1; }
-                if (chckBxForeignLang.Checked == true) { foreignChk = 1; }
-                if (chckBxLend.Checked == true) { lendChk = 1; }
+                int lendChk = 0, foreignChk = 0, ebookChk = 0, genId=addComBox.SelectedIndex;
+                if (chckBxEbookAdd.Checked == true) { ebookChk = 1; }
+                if (chckBxForeignLangAdd.Checked == true) { foreignChk = 1; }
+                if (chckBxLendAdd.Checked == true) { lendChk = 1; }
 /*
                 sqlDataAdapterAdd.InsertCommand = new SqlCommand("insert into Authors values ('" + txBxAddAuthor.Text + "')", connAdd);
                 connAdd.Open();
@@ -294,7 +294,7 @@ namespace LinqToSQLMultiTabGyak
                 {
 
                     sqlDataAdapterAdd.InsertCommand = new SqlCommand("Insert into Books  (books.Title, books.ISBN, books.Release_date, books.author_id, books.publisher_id, books.genre_id, books.foreign_language, books.e_book, books.borrowed) " +
-                        " values ('" + txBxAddTitle.Text + "','" + txBxAddISBN.Text + "','" + txBxAddPubDate.Text + "','" + Convert.ToInt64(checkAuthID) + "','" + Convert.ToInt64(checkPubID) + "','" + (comboBox1.SelectedIndex + 1) + "','" + foreignChk + "','" + ebookChk + "','" + lendChk + "') ", connAdd);
+                        " values ('" + txBxAddTitle.Text + "','" + txBxAddISBN.Text + "','" + txBxAddPubDate.Text + "','" + Convert.ToInt64(checkAuthID) + "','" + Convert.ToInt64(checkPubID) + "','" + (addComBox.SelectedIndex + 1) + "','" + foreignChk + "','" + ebookChk + "','" + lendChk + "') ", connAdd);
                     connAdd.Open();
                     sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
                     connAdd.Close();
@@ -302,7 +302,7 @@ namespace LinqToSQLMultiTabGyak
                 else if (checkAuthID != null && checkPubID == null)
                 {
                     sqlDataAdapterAdd.InsertCommand = new SqlCommand("Insert into Books  (books.Title, books.ISBN, books.Release_date, books.author_id, books.publisher_id, books.genre_id, books.foreign_language, books.e_book, books.borrowed)  " +
-                        "values ('" + txBxAddTitle.Text + "','" + txBxAddISBN.Text + "','" + txBxAddPubDate.Text + "','" + Convert.ToInt64(checkAuthID) + "','" + Convert.ToInt64(checkPubMax + 1) + "','" + (comboBox1.SelectedIndex+1) + "','" + foreignChk + "','" + ebookChk + "','" + lendChk + "') ", connAdd);
+                        "values ('" + txBxAddTitle.Text + "','" + txBxAddISBN.Text + "','" + txBxAddPubDate.Text + "','" + Convert.ToInt64(checkAuthID) + "','" + Convert.ToInt64(checkPubMax + 1) + "','" + (addComBox.SelectedIndex+1) + "','" + foreignChk + "','" + ebookChk + "','" + lendChk + "') ", connAdd);
                     connAdd.Open();
                     sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
                     connAdd.Close();
@@ -310,7 +310,7 @@ namespace LinqToSQLMultiTabGyak
                 else if (checkAuthID == null && checkPubID != null)
                 {
                     sqlDataAdapterAdd.InsertCommand = new SqlCommand("Insert into Books  (books.Title, books.ISBN, books.Release_date, books.author_id, books.publisher_id, books.genre_id, books.foreign_language, books.e_book, books.borrowed)  " +
-                        "values ('" + txBxAddTitle.Text + "','" + txBxAddISBN.Text + "','" + txBxAddPubDate.Text + "','" + Convert.ToInt64(checkAuthMax + 1) + "','" + Convert.ToInt64(checkPubID) + "','" + (comboBox1.SelectedIndex + 1) + "','" + foreignChk + "','" + ebookChk + "','" + lendChk + "') ", connAdd);
+                        "values ('" + txBxAddTitle.Text + "','" + txBxAddISBN.Text + "','" + txBxAddPubDate.Text + "','" + Convert.ToInt64(checkAuthMax + 1) + "','" + Convert.ToInt64(checkPubID) + "','" + (addComBox.SelectedIndex + 1) + "','" + foreignChk + "','" + ebookChk + "','" + lendChk + "') ", connAdd);
                     connAdd.Open();
                     sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
                     connAdd.Close();
@@ -355,7 +355,7 @@ namespace LinqToSQLMultiTabGyak
                             MessageBox.Show("Elenőrize a dátumot!");
                         }
                         else
-                        if (comboBox1.SelectedIndex<0)
+                        if (addComBox.SelectedIndex<0)
                         {
                             MessageBox.Show("Válasszon műfajt!");
                         }
@@ -364,8 +364,7 @@ namespace LinqToSQLMultiTabGyak
                             DatasToDB2();
                           
                             CleanAddedDatas();
-                            MessageBox.Show("Beillesztés sikeres!");
-                            comboBox1.SelectedIndex=-1;
+                            MessageBox.Show("Beillesztés sikeres!");               
                         }
                     } 
                 }
@@ -375,30 +374,25 @@ namespace LinqToSQLMultiTabGyak
 
         private void CleanAddedDatas()
         {
-            txBxAddAuthor.Text = txBxAddGenre.Text = txBxAddISBN.Text = txBxAddPubDate.Text = txBxAddPublisher.Text = txBxAddTitle.Text = "";
-            chckBxEbook.Checked = chckBxForeignLang.Checked = chckBxLend.Checked = false;
-        }
+            txBxAddAuthor.Text =txBxAddISBN.Text = txBxAddPubDate.Text = txBxAddPublisher.Text = txBxAddTitle.Text = "";
+            chckBxEbookAdd.Checked = chckBxForeignLangAdd.Checked = chckBxLendAdd.Checked = false;
+            addComBox.SelectedIndex = -1;
+                }
 
         private void btnCancelWindow_Click(object sender, EventArgs e)
         {
             this.Close();         
         }
 
-
-
-
-
-
-
         private void DatasToDB2()                //adatbevitel v2 (SQL) 
         {
             try
             {
                 string checkAuthID = null, checkAuthMax = "", checkPubID = null, checkPubMax = "";
-                int lendChk = 0, foreignChk = 0, ebookChk = 0, genId = comboBox1.SelectedIndex;
-                if (chckBxEbook.Checked == true) { ebookChk = 1; }
-                if (chckBxForeignLang.Checked == true) { foreignChk = 1; }
-                if (chckBxLend.Checked == true) { lendChk = 1; }
+                int lendChk = 0, foreignChk = 0, ebookChk = 0, genId = addComBox.SelectedIndex;
+                if (chckBxEbookAdd.Checked == true) { ebookChk = 1; }
+                if (chckBxForeignLangAdd.Checked == true) { foreignChk = 1; }
+                if (chckBxLendAdd.Checked == true) { lendChk = 1; }
 
                 sqlDataAdapterAdd.InsertCommand = new SqlCommand("insert into Authors values ('" + txBxAddAuthor.Text + "')", connAdd);
                 connAdd.Open();
@@ -477,36 +471,12 @@ namespace LinqToSQLMultiTabGyak
                     if (dataReader.Read()) checkPubMax = dataReader.GetValue(0).ToString();
                     connAdd.Close();
                 }
-                /*
-                            if (chckBxEbook.Checked == true)
-                            {
-                                sqlDataAdapterAdd.InsertCommand = new SqlCommand("insert into Books (books.E_book)  values ('" + 1 + "') ", connAdd);
-                                connAdd.Open();
-                                sqlDataAdapterAdd.UpdateCommand.ExecuteNonQuery();
-                                connAdd.Close();
-                            }
-
-                            if (chckBxForeignLang.Checked == true)
-                            {
-                                sqlDataAdapterAdd.UpdateCommand = new SqlCommand("insert into Books  (books.Foreign_language)  values ('" + 1 + "')", connAdd);
-                                connAdd.Open();
-                                sqlDataAdapterAdd.UpdateCommand.ExecuteNonQuery();
-                                connAdd.Close();
-                            }
-
-                            if (chckBxLend.Checked == true)
-                            {
-                                sqlDataAdapterAdd.UpdateCommand = new SqlCommand("insert into Books  (books.Borrowed)  values ('" + 1 + "')", connAdd);
-                                connAdd.Open();
-                                sqlDataAdapterAdd.UpdateCommand.ExecuteNonQuery();
-                                connAdd.Close();
-                            }
-                            */
+    
                 if (checkAuthID != null && checkPubID != null)
                 {
 
                     sqlDataAdapterAdd.InsertCommand = new SqlCommand("Insert into Books  (books.Title, books.ISBN, books.Release_date, books.author_id, books.publisher_id, books.genre_id, books.foreign_language, books.e_book, books.borrowed) " +
-                        " values ('" + txBxAddTitle.Text + "','" + txBxAddISBN.Text + "','" + txBxAddPubDate.Text + "','" + Convert.ToInt64(checkAuthID) + "','" + Convert.ToInt64(checkPubID) + "','" + (comboBox1.SelectedIndex + 1) + "','" + foreignChk + "','" + ebookChk + "','" + lendChk + "') ", connAdd);
+                        " values ('" + txBxAddTitle.Text + "','" + txBxAddISBN.Text + "','" + txBxAddPubDate.Text + "','" + Convert.ToInt64(checkAuthID) + "','" + Convert.ToInt64(checkPubID) + "','" + (addComBox.SelectedIndex + 1) + "','" + foreignChk + "','" + ebookChk + "','" + lendChk + "') ", connAdd);
                     connAdd.Open();
                     sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
                     connAdd.Close();
@@ -514,7 +484,7 @@ namespace LinqToSQLMultiTabGyak
                 else if (checkAuthID != null && checkPubID == null)
                 {
                     sqlDataAdapterAdd.InsertCommand = new SqlCommand("Insert into Books  (books.Title, books.ISBN, books.Release_date, books.author_id, books.publisher_id, books.genre_id, books.foreign_language, books.e_book, books.borrowed)  " +
-                        "values ('" + txBxAddTitle.Text + "','" + txBxAddISBN.Text + "','" + txBxAddPubDate.Text + "','" + Convert.ToInt64(checkAuthID) + "','" + Convert.ToInt64(checkPubMax + 1) + "','" + (comboBox1.SelectedIndex + 1) + "','" + foreignChk + "','" + ebookChk + "','" + lendChk + "') ", connAdd);
+                        "values ('" + txBxAddTitle.Text + "','" + txBxAddISBN.Text + "','" + txBxAddPubDate.Text + "','" + Convert.ToInt64(checkAuthID) + "','" + Convert.ToInt64(checkPubMax + 1) + "','" + (addComBox.SelectedIndex + 1) + "','" + foreignChk + "','" + ebookChk + "','" + lendChk + "') ", connAdd);
                     connAdd.Open();
                     sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
                     connAdd.Close();
@@ -522,7 +492,7 @@ namespace LinqToSQLMultiTabGyak
                 else if (checkAuthID == null && checkPubID != null)
                 {
                     sqlDataAdapterAdd.InsertCommand = new SqlCommand("Insert into Books  (books.Title, books.ISBN, books.Release_date, books.author_id, books.publisher_id, books.genre_id, books.foreign_language, books.e_book, books.borrowed)  " +
-                        "values ('" + txBxAddTitle.Text + "','" + txBxAddISBN.Text + "','" + txBxAddPubDate.Text + "','" + Convert.ToInt64(checkAuthMax + 1) + "','" + Convert.ToInt64(checkPubID) + "','" + (comboBox1.SelectedIndex + 1) + "','" + foreignChk + "','" + ebookChk + "','" + lendChk + "') ", connAdd);
+                        "values ('" + txBxAddTitle.Text + "','" + txBxAddISBN.Text + "','" + txBxAddPubDate.Text + "','" + Convert.ToInt64(checkAuthMax + 1) + "','" + Convert.ToInt64(checkPubID) + "','" + (addComBox.SelectedIndex + 1) + "','" + foreignChk + "','" + ebookChk + "','" + lendChk + "') ", connAdd);
                     connAdd.Open();
                     sqlDataAdapterAdd.InsertCommand.ExecuteNonQuery();
                     connAdd.Close();
@@ -539,14 +509,7 @@ namespace LinqToSQLMultiTabGyak
                 MessageBox.Show("" + genId);
             }
             catch (Exception ex) { MessageBox.Show("Probléma az adatok rögzítésében!" + ex); }
-
         }
-
-
-
-
-
-
 
     }
 }

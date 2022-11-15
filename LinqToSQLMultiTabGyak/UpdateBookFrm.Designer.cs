@@ -44,8 +44,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.txBxUpdGenre = new System.Windows.Forms.TextBox();
+            this.updtComBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // txBxUpdISBN
@@ -193,19 +192,12 @@
             this.label1.TabIndex = 17;
             this.label1.Text = "Cím:";
             // 
-            // comboBox1
+            // updtComBox
             // 
-            this.comboBox1.Location = new System.Drawing.Point(229, 92);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(213, 21);
-            this.comboBox1.TabIndex = 5;
-            // 
-            // txBxUpdGenre
-            // 
-            this.txBxUpdGenre.Location = new System.Drawing.Point(11, 179);
-            this.txBxUpdGenre.Name = "txBxUpdGenre";
-            this.txBxUpdGenre.Size = new System.Drawing.Size(213, 20);
-            this.txBxUpdGenre.TabIndex = 32;
+            this.updtComBox.Location = new System.Drawing.Point(229, 92);
+            this.updtComBox.Name = "updtComBox";
+            this.updtComBox.Size = new System.Drawing.Size(213, 21);
+            this.updtComBox.TabIndex = 5;
             // 
             // UpdateBookFrm
             // 
@@ -214,9 +206,8 @@
             this.CancelButton = this.btnCancelUpdaeWindow;
             this.ClientSize = new System.Drawing.Size(454, 281);
             this.ControlBox = false;
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.updtComBox);
             this.Controls.Add(this.txBxUpdISBN);
-            this.Controls.Add(this.txBxUpdGenre);
             this.Controls.Add(this.txBxUpdPbulisher);
             this.Controls.Add(this.txBxUpdAuthor);
             this.Controls.Add(this.txBxUpdTitle);
@@ -261,7 +252,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox txBxUpdGenre;
+        private System.Windows.Forms.ComboBox updtComBox;
     }
 }

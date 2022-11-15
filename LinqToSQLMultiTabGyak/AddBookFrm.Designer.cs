@@ -34,18 +34,17 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.chckBxForeignLang = new System.Windows.Forms.CheckBox();
-            this.chckBxEbook = new System.Windows.Forms.CheckBox();
-            this.chckBxLend = new System.Windows.Forms.CheckBox();
+            this.chckBxForeignLangAdd = new System.Windows.Forms.CheckBox();
+            this.chckBxEbookAdd = new System.Windows.Forms.CheckBox();
+            this.chckBxLendAdd = new System.Windows.Forms.CheckBox();
             this.btnAddFromWindow = new System.Windows.Forms.Button();
             this.btnCancelWindow = new System.Windows.Forms.Button();
             this.txBxAddPubDate = new System.Windows.Forms.TextBox();
             this.txBxAddTitle = new System.Windows.Forms.TextBox();
             this.txBxAddAuthor = new System.Windows.Forms.TextBox();
             this.txBxAddPublisher = new System.Windows.Forms.TextBox();
-            this.txBxAddGenre = new System.Windows.Forms.TextBox();
             this.txBxAddISBN = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.addComBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -102,35 +101,35 @@
             this.label6.TabIndex = 5;
             this.label6.Text = "ISBN:";
             // 
-            // chckBxForeignLang
+            // chckBxForeignLangAdd
             // 
-            this.chckBxForeignLang.AutoSize = true;
-            this.chckBxForeignLang.Location = new System.Drawing.Point(82, 144);
-            this.chckBxForeignLang.Name = "chckBxForeignLang";
-            this.chckBxForeignLang.Size = new System.Drawing.Size(93, 17);
-            this.chckBxForeignLang.TabIndex = 7;
-            this.chckBxForeignLang.Text = "Idegen nyelvű";
-            this.chckBxForeignLang.UseVisualStyleBackColor = true;
+            this.chckBxForeignLangAdd.AutoSize = true;
+            this.chckBxForeignLangAdd.Location = new System.Drawing.Point(82, 144);
+            this.chckBxForeignLangAdd.Name = "chckBxForeignLangAdd";
+            this.chckBxForeignLangAdd.Size = new System.Drawing.Size(93, 17);
+            this.chckBxForeignLangAdd.TabIndex = 7;
+            this.chckBxForeignLangAdd.Text = "Idegen nyelvű";
+            this.chckBxForeignLangAdd.UseVisualStyleBackColor = true;
             // 
-            // chckBxEbook
+            // chckBxEbookAdd
             // 
-            this.chckBxEbook.AutoSize = true;
-            this.chckBxEbook.Location = new System.Drawing.Point(180, 144);
-            this.chckBxEbook.Name = "chckBxEbook";
-            this.chckBxEbook.Size = new System.Drawing.Size(60, 17);
-            this.chckBxEbook.TabIndex = 8;
-            this.chckBxEbook.Text = "E-book";
-            this.chckBxEbook.UseVisualStyleBackColor = true;
+            this.chckBxEbookAdd.AutoSize = true;
+            this.chckBxEbookAdd.Location = new System.Drawing.Point(180, 144);
+            this.chckBxEbookAdd.Name = "chckBxEbookAdd";
+            this.chckBxEbookAdd.Size = new System.Drawing.Size(60, 17);
+            this.chckBxEbookAdd.TabIndex = 8;
+            this.chckBxEbookAdd.Text = "E-book";
+            this.chckBxEbookAdd.UseVisualStyleBackColor = true;
             // 
-            // chckBxLend
+            // chckBxLendAdd
             // 
-            this.chckBxLend.AutoSize = true;
-            this.chckBxLend.Location = new System.Drawing.Point(246, 144);
-            this.chckBxLend.Name = "chckBxLend";
-            this.chckBxLend.Size = new System.Drawing.Size(91, 17);
-            this.chckBxLend.TabIndex = 9;
-            this.chckBxLend.Text = "Kölcsön adva";
-            this.chckBxLend.UseVisualStyleBackColor = true;
+            this.chckBxLendAdd.AutoSize = true;
+            this.chckBxLendAdd.Location = new System.Drawing.Point(246, 144);
+            this.chckBxLendAdd.Name = "chckBxLendAdd";
+            this.chckBxLendAdd.Size = new System.Drawing.Size(91, 17);
+            this.chckBxLendAdd.TabIndex = 9;
+            this.chckBxLendAdd.Text = "Kölcsön adva";
+            this.chckBxLendAdd.UseVisualStyleBackColor = true;
             // 
             // btnAddFromWindow
             // 
@@ -186,14 +185,6 @@
             this.txBxAddPublisher.Size = new System.Drawing.Size(360, 20);
             this.txBxAddPublisher.TabIndex = 3;
             // 
-            // txBxAddGenre
-            // 
-            this.txBxAddGenre.Location = new System.Drawing.Point(15, 186);
-            this.txBxAddGenre.Name = "txBxAddGenre";
-            this.txBxAddGenre.Size = new System.Drawing.Size(213, 20);
-            this.txBxAddGenre.TabIndex = 15;
-            this.txBxAddGenre.Text = "név: txBxAddGenre";
-            // 
             // txBxAddISBN
             // 
             this.txBxAddISBN.Location = new System.Drawing.Point(82, 118);
@@ -201,14 +192,14 @@
             this.txBxAddISBN.Size = new System.Drawing.Size(360, 20);
             this.txBxAddISBN.TabIndex = 6;
             // 
-            // comboBox1
+            // addComBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(229, 92);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(213, 21);
-            this.comboBox1.TabIndex = 5;
-            this.comboBox1.Text = "Kérem válasszon!";
+            this.addComBox.FormattingEnabled = true;
+            this.addComBox.Location = new System.Drawing.Point(229, 92);
+            this.addComBox.Name = "addComBox";
+            this.addComBox.Size = new System.Drawing.Size(213, 21);
+            this.addComBox.TabIndex = 5;
+            this.addComBox.Text = "Kérem válasszon!";
             // 
             // AddBookFrm
             // 
@@ -217,18 +208,17 @@
             this.CancelButton = this.btnCancelWindow;
             this.ClientSize = new System.Drawing.Size(454, 281);
             this.ControlBox = false;
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.addComBox);
             this.Controls.Add(this.txBxAddISBN);
-            this.Controls.Add(this.txBxAddGenre);
             this.Controls.Add(this.txBxAddPublisher);
             this.Controls.Add(this.txBxAddAuthor);
             this.Controls.Add(this.txBxAddTitle);
             this.Controls.Add(this.txBxAddPubDate);
             this.Controls.Add(this.btnCancelWindow);
             this.Controls.Add(this.btnAddFromWindow);
-            this.Controls.Add(this.chckBxLend);
-            this.Controls.Add(this.chckBxEbook);
-            this.Controls.Add(this.chckBxForeignLang);
+            this.Controls.Add(this.chckBxLendAdd);
+            this.Controls.Add(this.chckBxEbookAdd);
+            this.Controls.Add(this.chckBxForeignLangAdd);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -255,17 +245,16 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.CheckBox chckBxForeignLang;
-        private System.Windows.Forms.CheckBox chckBxEbook;
-        private System.Windows.Forms.CheckBox chckBxLend;
+        private System.Windows.Forms.CheckBox chckBxForeignLangAdd;
+        private System.Windows.Forms.CheckBox chckBxEbookAdd;
+        private System.Windows.Forms.CheckBox chckBxLendAdd;
         private System.Windows.Forms.Button btnAddFromWindow;
         private System.Windows.Forms.Button btnCancelWindow;
         private System.Windows.Forms.TextBox txBxAddPubDate;
         private System.Windows.Forms.TextBox txBxAddTitle;
         private System.Windows.Forms.TextBox txBxAddAuthor;
         private System.Windows.Forms.TextBox txBxAddPublisher;
-        private System.Windows.Forms.TextBox txBxAddGenre;
         private System.Windows.Forms.TextBox txBxAddISBN;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox addComBox;
     }
 }

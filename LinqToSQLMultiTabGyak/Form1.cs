@@ -32,7 +32,7 @@ namespace LinqToSQLMultiTabGyak
             tableMergingStuff();
         }
 
-        public void refreshMain() {  this.Refresh(); }
+  //      public void refreshMain() {  this.Refresh(); }
 
        private void tableMergingStuff()
         {
@@ -420,45 +420,45 @@ namespace LinqToSQLMultiTabGyak
         string xxxx = "";
         string sqlCsekkHelpParancs = "select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj," +
                            " Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv," +
-                           " Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID " +
+                           " Books.E_book, Books.Borrowed as Kölcsönadott, books.id as Ikt_szám from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID " +
                            "inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID " +
                            "where";
 
         string[] sqlParancsok ={"select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj," +
                            " Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv," +
-                           " Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID " +
+                           " Books.E_book, Books.Borrowed as Kölcsönadott, books.id as Ikt_szám from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID " +
                            "inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID " +
                            "where books.title ",
 
                             "select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj," +
                            " Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv," +
-                           " Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID " +
+                           " Books.E_book, Books.Borrowed as Kölcsönadott , books.id as Ikt_szám from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID " +
                            "inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID " +
                            "where authors.author ",
 
                            "select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj," +
                            " Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv," +
-                           " Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID " +
+                           " Books.E_book, Books.Borrowed as Kölcsönadott , books.id as Ikt_szám from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID " +
                            "inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID " +
                            "where genres.genre ",
 
                            "select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj," +
                            " Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv," +
-                           " Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID " +
+                           " Books.E_book, Books.Borrowed as Kölcsönadott , books.id as Ikt_szám from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID " +
                            "inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID " +
                            "where publishers.publisher ",
 
 
                            "select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj," +
                            " Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv," +
-                           " Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID " +
+                           " Books.E_book, Books.Borrowed as Kölcsönadott , books.id as Ikt_szám from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID " +
                            "inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID " +
                            "where books.release_date ",
 
 
                            "select  Books.Title as Cím, Authors.Author as Szerző, Genres.Genre as Műfaj," +
                            " Publishers.Publisher as Kiadó, Books.Release_date as Kiadás_éve, Books.ISBN, Books.Foreign_language as Idegen_nyelv," +
-                           " Books.E_book, Books.Borrowed as Kölcsönadott from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID " +
+                           " Books.E_book, Books.Borrowed as Kölcsönadott, books.id as Ikt_szám  from[dbo].[Books] inner join[dbo].[Authors] on Books.Author_id=Authors.ID " +
                            "inner join[dbo].[Genres] on books.Genre_id= Genres.ID inner join [dbo].[Publishers] on Books.Publisher_id= Publishers.ID " +
                            "where books.isbn ",
         };              //parancs tömbösítve - ha már csak a 'where'-rel nem ment...
@@ -770,7 +770,6 @@ namespace LinqToSQLMultiTabGyak
           //  cbIndex = comBox.SelectedIndex;
         }
 
-
         private void searchThread(string szovBe, int comIndex)
         {
             try
@@ -872,7 +871,7 @@ namespace LinqToSQLMultiTabGyak
                                     join pub in dbContext.Publishers on book.Publisher_id equals pub.ID
                                     join gen in dbContext.Genres on book.Genre_id equals gen.ID
                                     // orderby book.Title
-                                    select new { Cím =book.Title, Szerző=auth.Author1, Műfaj=gen.Genre1, Kiadó=pub.Publisher1, Kiadás_éve=book.Release_date, ISBN=book.ISBN, Idegen_nyelv=book.Foreign_language, E_book=book.E_book, Kölcsönadott=book.Borrowed };
+                                    select new { Cím =book.Title, Szerző=auth.Author1, Műfaj=gen.Genre1, Kiadó=pub.Publisher1, Kiadás_éve=book.Release_date, ISBN=book.ISBN, Idegen_nyelv=book.Foreign_language, E_book=book.E_book, Kölcsönadott=book.Borrowed, Ikt_szám = book.ID };
 
                         dataGridViewTread.DataSource = query;
                     }
@@ -885,7 +884,7 @@ namespace LinqToSQLMultiTabGyak
                                     join pub in dbContext.Publishers on book.Publisher_id equals pub.ID
                                     join gen in dbContext.Genres on book.Genre_id equals gen.ID
                                     // orderby book.Title
-                                    select new { Cím = book.Title, Szerző = auth.Author1, Műfaj = gen.Genre1, Kiadó = pub.Publisher1, Kiadás_éve = book.Release_date, ISBN = book.ISBN, Idegen_nyelv = book.Foreign_language, E_book = book.E_book, Kölcsönadott = book.Borrowed };
+                                    select new { Cím = book.Title, Szerző = auth.Author1, Műfaj = gen.Genre1, Kiadó = pub.Publisher1, Kiadás_éve = book.Release_date, ISBN = book.ISBN, Idegen_nyelv = book.Foreign_language, E_book = book.E_book, Kölcsönadott = book.Borrowed, Ikt_szám = book.ID };
                         dataGridViewTread.DataSource = query;
                     }
 
@@ -897,7 +896,7 @@ namespace LinqToSQLMultiTabGyak
                                     join pub in dbContext.Publishers on book.Publisher_id equals pub.ID
                                     join gen in dbContext.Genres on book.Genre_id equals gen.ID
                                     // orderby book.Title
-                                    select new { Cím = book.Title, Szerző = auth.Author1, Műfaj = gen.Genre1, Kiadó = pub.Publisher1, Kiadás_éve = book.Release_date, ISBN = book.ISBN, Idegen_nyelv = book.Foreign_language, E_book = book.E_book, Kölcsönadott = book.Borrowed };
+                                    select new { Cím = book.Title, Szerző = auth.Author1, Műfaj = gen.Genre1, Kiadó = pub.Publisher1, Kiadás_éve = book.Release_date, ISBN = book.ISBN, Idegen_nyelv = book.Foreign_language, E_book = book.E_book, Kölcsönadott = book.Borrowed, Ikt_szám = book.ID };
 
                         dataGridViewTread.DataSource = query;
                     }
@@ -910,7 +909,7 @@ namespace LinqToSQLMultiTabGyak
                                     join pub in dbContext.Publishers on book.Publisher_id equals pub.ID
                                     join gen in dbContext.Genres on book.Genre_id equals gen.ID
                                     // orderby book.Title
-                                    select new { Cím = book.Title, Szerző = auth.Author1, Műfaj = gen.Genre1, Kiadó = pub.Publisher1, Kiadás_éve = book.Release_date, ISBN = book.ISBN, Idegen_nyelv = book.Foreign_language, E_book = book.E_book, Kölcsönadott = book.Borrowed };
+                                    select new { Cím = book.Title, Szerző = auth.Author1, Műfaj = gen.Genre1, Kiadó = pub.Publisher1, Kiadás_éve = book.Release_date, ISBN = book.ISBN, Idegen_nyelv = book.Foreign_language, E_book = book.E_book, Kölcsönadott = book.Borrowed, Ikt_szám = book.ID };
 
                         dataGridViewTread.DataSource = query;
                     }
@@ -922,7 +921,7 @@ namespace LinqToSQLMultiTabGyak
                                     join pub in dbContext.Publishers on book.Publisher_id equals pub.ID
                                     join gen in dbContext.Genres on book.Genre_id equals gen.ID
                                     // orderby book.Title
-                                    select new { Cím = book.Title, Szerző = auth.Author1, Műfaj = gen.Genre1, Kiadó = pub.Publisher1, Kiadás_éve = book.Release_date, ISBN = book.ISBN, Idegen_nyelv = book.Foreign_language, E_book = book.E_book, Kölcsönadott = book.Borrowed };
+                                    select new { Cím = book.Title, Szerző = auth.Author1, Műfaj = gen.Genre1, Kiadó = pub.Publisher1, Kiadás_éve = book.Release_date, ISBN = book.ISBN, Idegen_nyelv = book.Foreign_language, E_book = book.E_book, Kölcsönadott = book.Borrowed, Ikt_szám = book.ID };
 
                         dataGridViewTread.DataSource = query;
                     }
@@ -934,7 +933,7 @@ namespace LinqToSQLMultiTabGyak
                                     join pub in dbContext.Publishers on book.Publisher_id equals pub.ID
                                     join gen in dbContext.Genres on book.Genre_id equals gen.ID
                                     // orderby book.Title
-                                    select new { Cím = book.Title, Szerző = auth.Author1, Műfaj = gen.Genre1, Kiadó = pub.Publisher1, Kiadás_éve = book.Release_date, ISBN = book.ISBN, Idegen_nyelv = book.Foreign_language, E_book = book.E_book, Kölcsönadott = book.Borrowed };
+                                    select new { Cím = book.Title, Szerző = auth.Author1, Műfaj = gen.Genre1, Kiadó = pub.Publisher1, Kiadás_éve = book.Release_date, ISBN = book.ISBN, Idegen_nyelv = book.Foreign_language, E_book = book.E_book, Kölcsönadott = book.Borrowed, Ikt_szám = book.ID };
 
                         dataGridViewTread.DataSource = query;
                     }
@@ -947,7 +946,7 @@ namespace LinqToSQLMultiTabGyak
                                     join pub in dbContext.Publishers on book.Publisher_id equals pub.ID
                                     join gen in dbContext.Genres on book.Genre_id equals gen.ID
                                     // orderby book.Title
-                                    select new { Cím = book.Title, Szerző = auth.Author1, Műfaj = gen.Genre1, Kiadó = pub.Publisher1, Kiadás_éve = book.Release_date, ISBN = book.ISBN, Idegen_nyelv = book.Foreign_language, E_book = book.E_book, Kölcsönadott = book.Borrowed };
+                                    select new { Cím = book.Title, Szerző = auth.Author1, Műfaj = gen.Genre1, Kiadó = pub.Publisher1, Kiadás_éve = book.Release_date, ISBN = book.ISBN, Idegen_nyelv = book.Foreign_language, E_book = book.E_book, Kölcsönadott = book.Borrowed, Ikt_szám = book.ID };
 
                         dataGridViewTread.DataSource = query;
                     }
@@ -960,7 +959,7 @@ namespace LinqToSQLMultiTabGyak
                                     join pub in dbContext.Publishers on book.Publisher_id equals pub.ID
                                     join gen in dbContext.Genres on book.Genre_id equals gen.ID
                                     // orderby book.Title
-                                    select new { Cím = book.Title, Szerző = auth.Author1, Műfaj = gen.Genre1, Kiadó = pub.Publisher1, Kiadás_éve = book.Release_date, ISBN = book.ISBN, Idegen_nyelv = book.Foreign_language, E_book = book.E_book, Kölcsönadott = book.Borrowed };
+                                    select new { Cím = book.Title, Szerző = auth.Author1, Műfaj = gen.Genre1, Kiadó = pub.Publisher1, Kiadás_éve = book.Release_date, ISBN = book.ISBN, Idegen_nyelv = book.Foreign_language, E_book = book.E_book, Kölcsönadott = book.Borrowed, Ikt_szám=book.ID };
 
                         dataGridViewTread.DataSource = query;
                     }
@@ -1115,6 +1114,7 @@ namespace LinqToSQLMultiTabGyak
                     taskSrc.Start();
 
                     if (taskSrc.IsCanceled == true || taskSrc.IsFaulted) { MessageBox.Show("Hiba a keresés folyamán!"); }
+                  
                 }
             }
             catch (Exception ex)
@@ -1191,7 +1191,8 @@ namespace LinqToSQLMultiTabGyak
 
             AddBookFrm addBook = new AddBookFrm();
             addBook.ShowDialog();
-            tableMergingStuff();
+             tableMergingStuff();
+            
         }
 
         #region //beírt adat törlése a szövegmezőből
@@ -1260,23 +1261,23 @@ namespace LinqToSQLMultiTabGyak
                     {
                         int columnCount = dataGridView1.Columns.Count;
                         string columnNames = "";
-                        string[] outputCSV = new string[dataGridView1.Rows.Count + 1];
+                        string[] outputTxt = new string[dataGridView1.Rows.Count + 1];
 
                         for (int i = 0; i < columnCount; i++)
                         {
                             columnNames += dataGridView1.Columns[i].HeaderText.ToString() + "\t";
                         }
-                        outputCSV[0] += columnNames;
+                        outputTxt[0] += columnNames;
 
                         for (int i = 1; i - 1 < dataGridView1.Rows.Count; i++)
                         {
                             for (int j = 0; j < columnCount; j++)
                             {
-                                outputCSV[i] += dataGridView1.Rows[i - 1].Cells[j].Value.ToString() + "\t";
+                                outputTxt[i] += dataGridView1.Rows[i - 1].Cells[j].Value.ToString() + "\t";
                             }
                         }
 
-                        File.WriteAllLines(saveFile.FileName, outputCSV, Encoding.UTF8);
+                        File.WriteAllLines(saveFile.FileName, outputTxt, Encoding.UTF8);
                         MessageBox.Show("A mentés sikeres!");
                     }
 
@@ -1291,7 +1292,7 @@ namespace LinqToSQLMultiTabGyak
         private void menuStripExportCSV_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFile = new SaveFileDialog();
-            saveFile.Filter = ("csv (*.csv) |*.csv");
+            saveFile.Filter = ("táblázat (*.csv) |*.csv");
             saveFile.FileName = "névtelen.csv";
             bool fileError = false;
             
@@ -1382,7 +1383,7 @@ namespace LinqToSQLMultiTabGyak
             {
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.Filter = "PDF (*.pdf)|*.pdf";
-                saveFileDialog.FileName = "Output.pdf";
+                saveFileDialog.FileName = "névtelen.pdf";
                 bool fileError = false;
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -1423,7 +1424,7 @@ namespace LinqToSQLMultiTabGyak
 
                             using (FileStream fstream = new FileStream(saveFileDialog.FileName, FileMode.Create))
                             {
-                                Document pdfDoc = new Document(PageSize.A4, 10f, 20f, 20f, 10f);
+                                Document pdfDoc = new Document(PageSize.A4.Rotate(), 10f, 20f, 20f, 10f);
                                 PdfWriter.GetInstance(pdfDoc, fstream);
                                 pdfDoc.Open();
                                 pdfDoc.Add(pdfTable);
@@ -1569,17 +1570,16 @@ namespace LinqToSQLMultiTabGyak
             //    MessageBox.Show(uTitle  + "\n" + uAuthor + "\n" + uGenre + "\n" +uPublihser + "\n" +uPubDate + "\n" +uISBN);   //értékek tesztelése
 
             UpdateBookFrm updateBook = new UpdateBookFrm();
-            updateBook.GetTitle = uTitle;
+            updateBook.GetTitle =  uTitle;
             updateBook.GetAuthor = uAuthor;
             updateBook.GetGenre = uGenre;
             updateBook.GetPublishser = uPublihser;
             updateBook.GetPubDAte = uPubDate;
             updateBook.GetISBN = uISBN;
-            updateBook.GetEbook = chckBxEbook.Checked;
             updateBook.GetIktSzam = uIkSzam;
              if (uForeign.CompareTo("true")==1) { updateBook.GetForeign = true; }
              if (uBorrowed.CompareTo( "true")==1) { updateBook.GetBorrowed =true; }
-            if (uEbook.CompareTo("true") == 1) { updateBook.GetEbook = true; }
+             if (uEbook.CompareTo("true") == 1) { updateBook.GetEbook = true; }
 
             updateBook.ShowDialog();
             tableMergingStuff();

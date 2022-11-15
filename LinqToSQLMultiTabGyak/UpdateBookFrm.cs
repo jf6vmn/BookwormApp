@@ -22,7 +22,7 @@ namespace LinqToSQLMultiTabGyak
         public bool GetBorrowed { get; set; }
         public string GetIktSzam { get; set; }
 
-        DataSet dataSet=new DataSet();
+       // DataSet dataSet=new DataSet();
         int authCount =0, pubCount = 0;
 
         SqlConnection sqlConnectionUpdate = new SqlConnection("Data Source=VLZASUS;Initial Catalog=Bookworm;Integrated Security=True");
@@ -35,12 +35,11 @@ namespace LinqToSQLMultiTabGyak
 
         private void UpdateBookFrm_Load(object sender, EventArgs e)
         {
-            Form1 mainFrm = new Form1();
+            //Form1 mainFrm = new Form1();
             txBxUpdTitle.Text = GetTitle;
             txBxUpdAuthor.Text = GetAuthor;
             txBxUpdPbulisher.Text = GetPublishser;
             txBxUpdPubDate.Text = GetPubDAte;
-            txBxUpdGenre.Text = GetGenre;
             txBxUpdISBN.Text = GetISBN;
             chckBxUpdEbook.Checked = GetEbook;
             chckBxUpdForeignLang.Checked = GetForeign;
@@ -62,10 +61,10 @@ namespace LinqToSQLMultiTabGyak
 
                     foreach (DataRow dr in dt.Rows)
                     {
-                        comboBox1.Items.Add(dr["Genre"].ToString());
+                        updtComBox.Items.Add(dr["Genre"].ToString());
                     }
 
-                    comboBox1.Text = GetGenre;
+                    updtComBox.Text = GetGenre;
                     //conn.Close(); 
                     sqlConnectionUpdate.Close();
                 }
@@ -273,9 +272,9 @@ namespace LinqToSQLMultiTabGyak
                         sqlConnectionUpdate.Close();                   
                 }             //kiadás éve
 
-                if (comboBox1.SelectedItem.ToString() != GetGenre)                //if (txBxUpdGenre.Text != GetGenre)
+                if (updtComBox.SelectedItem.ToString() != GetGenre)                //if (txBxUpdGenre.Text != GetGenre)
                 {
-                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set Books.Genre_id  = '" + (comboBox1.SelectedIndex+1) + "' from Genres inner join[dbo].Books on Books.Genre_id = Genres.ID where   books.ID='" + GetIktSzam + "' and  Genres.Genre='" + GetGenre + "'", sqlConnectionUpdate);
+                    sqlDataAdapterUpdate.UpdateCommand = new SqlCommand("update Books set Books.Genre_id  = '" + (updtComBox.SelectedIndex+1) + "' from Genres inner join[dbo].Books on Books.Genre_id = Genres.ID where   books.ID='" + GetIktSzam + "' and  Genres.Genre='" + GetGenre + "'", sqlConnectionUpdate);
 
                     sqlConnectionUpdate.Open();
                     sqlDataAdapterUpdate.UpdateCommand.ExecuteNonQuery();
